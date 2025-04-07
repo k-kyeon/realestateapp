@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "react-native-real-estate-app",
-    "slug": "react-native-real-estate-app",
+    "name": "Real Estate",
+    "slug": "real-estate-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
