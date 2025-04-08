@@ -42,7 +42,7 @@ const Onboarding = () => {
       >
         {onboarding.map((item) => (
           <View key={item.id} className="flex justify-center items-center">
-            <View className="w-full h-[450px] overflow-hidden">
+            <View className="w-full h-[450px]">
               <Image
                 source={item.image}
                 className="w-full h-full"
