@@ -27,8 +27,7 @@ export const onboarding = [
   {
     id: 3,
     title: "Dreamy",
-    description:
-      "Discover the luxury residence that aligns with your ambitions.",
+    description: "Discover the luxury residence that you always dreamed of.",
     image: images.onboarding3,
     bgColor: "#cbffdf",
   },
