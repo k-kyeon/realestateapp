@@ -1,11 +1,22 @@
 import onboarding1 from "@/assets/images/onboarding1.png";
 import onboarding2 from "@/assets/images/onboarding2.png";
 import onboarding3 from "@/assets/images/onboarding3.png";
+import signup from "@/assets/images/signup.png";
+import mailicon from "@/assets/icons/mailicon.png";
+import passwordicon from "@/assets/icons/passwordicon.png";
+import nameicon from "@/assets/icons/nameicon.png";
 
 export const images = {
   onboarding1,
   onboarding2,
   onboarding3,
+  signup,
+};
+
+export const icons = {
+  mailicon,
+  passwordicon,
+  nameicon,
 };
 
 export const onboarding = [
