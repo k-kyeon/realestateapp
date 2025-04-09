@@ -237,6 +237,7 @@ const SignUp = () => {
                   title="Go Explore"
                   onPress={() => {
                     setShowSuccessModal(false);
+                    router.push("/(main)/(tabs)/home");
                   }}
                   className="mt-4"
                 />
