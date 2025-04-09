@@ -6,12 +6,14 @@ import mailicon from "@/assets/icons/mailicon.png";
 import passwordicon from "@/assets/icons/passwordicon.png";
 import nameicon from "@/assets/icons/nameicon.png";
 import googleicon from "@/assets/icons/googleicon.png";
+import verified from "@/assets/images/verified.png";
 
 export const images = {
   onboarding1,
   onboarding2,
   onboarding3,
   signup,
+  verified,
 };
 
 export const icons = {
