@@ -28,7 +28,7 @@ const InputField = ({
           </Text>
         </View>
         <View
-          className={`flex flex-row justify-start items-center rounded-full border border-sky-950 bg-neutral-100 p-4 focus:border-cyan-400 ${containerStyle}`}
+          className={`flex flex-row justify-start items-center rounded-2xl border border-sky-950 bg-[#f7f9f8] p-4 focus:border-cyan-400 ${containerStyle}`}
         >
           {icon && (
             <Image source={icon} className={`w-6 h-6 mx-2.5 ${iconStyle}`} />
