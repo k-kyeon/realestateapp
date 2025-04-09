@@ -5,6 +5,7 @@ import signup from "@/assets/images/signup.png";
 import mailicon from "@/assets/icons/mailicon.png";
 import passwordicon from "@/assets/icons/passwordicon.png";
 import nameicon from "@/assets/icons/nameicon.png";
+import googleicon from "@/assets/icons/googleicon.png";
 
 export const images = {
   onboarding1,
@@ -17,6 +18,7 @@ export const icons = {
   mailicon,
   passwordicon,
   nameicon,
+  googleicon,
 };
 
 export const onboarding = [
