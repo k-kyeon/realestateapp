@@ -12,7 +12,7 @@ const CustomButton = ({
   return (
     <TouchableOpacity
       onPress={onPress}
-      className={`flex flex-row border-2 rounded-full p-2 justify-center items-center ${className}`}
+      className={`flex flex-row rounded-full shadow-md  p-2 justify-center items-center ${className}`}
     >
       {LeftIcon && <LeftIcon />}
       <Text className="text-lg font-MontserratBold">{title}</Text>

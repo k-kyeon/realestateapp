@@ -45,20 +45,29 @@ const SignUp = () => {
               placeholder="Enter your name"
               value={form.name}
               icon={icons.nameicon}
+              onChangeText={(value) => setForm({ ...form, name: value })}
             />
             <InputField
               label="Email"
               placeholder="Enter your email"
               value={form.email}
               icon={icons.mailicon}
+              onChangeText={(value) => setForm({ ...form, email: value })}
             />
             <InputField
               label="Password"
               placeholder="Enter your password"
-              value={form.email}
+              value={form.password}
               icon={icons.passwordicon}
+              onChangeText={(value) => setForm({ ...form, password: value })}
+              secureTextEntry={true}
             />
-            <CustomButton title="Sign Up" className="mt-10 bg-sky-100" />
+
+            <CustomButton
+              title="Sign Up"
+              className="mt-10 border border-sky-400 bg-sky-200/90 shadow-cyan-300"
+            />
+
             <Link
               href="/sign-in"
               className="text-lg text-center font-MontserratLight mt-10"
