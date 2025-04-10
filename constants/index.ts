@@ -7,11 +7,12 @@ import password from "@/assets/icons/password.png";
 import name from "@/assets/icons/name.png";
 import google from "@/assets/icons/google.png";
 import verified from "@/assets/images/verified.png";
-import bookmark from "@/assets/images/bookmark.png";
-import home from "@/assets/images/home.png";
-import leftArrow from "@/assets/images/left-arrow.png";
-import profile from "@/assets/images/profile.png";
-import logout from "@/assets/images/logout.png";
+import bookmark from "@/assets/icons/bookmark.png";
+import home from "@/assets/icons/home.png";
+import leftArrow from "@/assets/icons/left-arrow.png";
+import profile from "@/assets/icons/profile.png";
+import logout from "@/assets/icons/logout.png";
+import chat from "@/assets/icons/chat.png";
 
 export const images = {
   onboarding1,
@@ -31,6 +32,7 @@ export const icons = {
   leftArrow,
   profile,
   logout,
+  chat,
 };
 
 export const onboarding = [
