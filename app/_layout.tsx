@@ -5,6 +5,10 @@ import { StatusBar } from "react-native";
 import { useEffect } from "react";
 import "react-native-reanimated";
 import "@/global.css";
+import { ClerkProvider } from "@clerk/clerk-expo";
+import { tokenCache } from "@clerk/clerk-expo/token-cache";
+
+const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -19,6 +23,12 @@ export default function RootLayout() {
     "Montserrat-Thin": require("../assets/fonts/Montserrat-Thin.ttf"),
   });
 
+  if (!publishableKey) {
+    throw new Error(
+      "Missing Publishable Key. Please set EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY in your .env"
+    );
+  }
+
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
@@ -30,13 +40,14 @@ export default function RootLayout() {
   }
 
   return (
-    <>
+    <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
       <StatusBar barStyle="default" />
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />\
+        <Stack.Screen name="(main)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
-    </>
+    </ClerkProvider>
   );
 }
