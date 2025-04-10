@@ -75,14 +75,14 @@ const SignIn = () => {
               label="Email"
               placeholder="Enter your email"
               value={form.email}
-              icon={icons.mailicon}
+              icon={icons.mail}
               onChangeText={(value) => setForm({ ...form, email: value })}
             />
             <InputField
               label="Password"
               placeholder="Enter your password"
               value={form.password}
-              icon={icons.passwordicon}
+              icon={icons.password}
               onChangeText={(value) => setForm({ ...form, password: value })}
               secureTextEntry={true}
             />
