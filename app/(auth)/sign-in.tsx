@@ -11,14 +11,45 @@ import React, { useState } from "react";
 import InputField from "@/components/InputField";
 import { icons, images } from "@/constants";
 import CustomButton from "@/components/CustomButton";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import OAuth from "@/components/OAuth";
+import { useSignIn } from "@clerk/clerk-expo";
 
 const SignIn = () => {
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
+
+  const { signIn, setActive, isLoaded } = useSignIn();
+
+  // Handle the submission of the sign-in form
+  const onSignInPress = async () => {
+    if (!isLoaded) return;
+
+    // Start the sign-in process using the email and password provided
+    try {
+      const signInAttempt = await signIn.create({
+        identifier: form.email,
+        password: form.password,
+      });
+
+      // If sign-in process is complete, set the created session as active
+      // and redirect the user
+      if (signInAttempt.status === "complete") {
+        await setActive({ session: signInAttempt.createdSessionId });
+        router.replace("/");
+      } else {
+        // If the status isn't complete, check why. User might need to
+        // complete further steps.
+        console.error(JSON.stringify(signInAttempt, null, 2));
+      }
+    } catch (err) {
+      // See https://clerk.com/docs/custom-flows/error-handling
+      // for more info on error handling
+      console.error(JSON.stringify(err, null, 2));
+    }
+  };
 
   return (
     <KeyboardAvoidingView
@@ -33,7 +64,9 @@ const SignIn = () => {
               <Text className="text-5xl font-MontserratRegular ml-1 mb-2 text-slate-500">
                 Welcome back!
               </Text>
-              <Text className="text-xl font-MontserratBold ml-2">Sign In</Text>
+              <Text className="text-xl font-MontserratBold ml-2 mb-2">
+                Sign In
+              </Text>
             </View>
           </View>
 
@@ -58,6 +91,7 @@ const SignIn = () => {
               title="Sign In"
               titleStyles="text-[#1e7f7c]"
               className="mt-10 border-sky-500 bg-sky-200/90 shadow-cyan-200"
+              onPress={onSignInPress}
             />
 
             <OAuth />
