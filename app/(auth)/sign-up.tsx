@@ -139,7 +139,7 @@ const SignUp = () => {
 
             <CustomButton
               title="Sign Up"
-              titleStyles="text-[#1e7f7c]"
+              titleStyles="text-[#0c5555]"
               className="mt-10 border-sky-500 bg-sky-200/90 shadow-cyan-200"
               onPress={onSignUpPress}
             />
