@@ -118,21 +118,21 @@ const SignUp = () => {
               label="Name"
               placeholder="Enter your name"
               value={form.name}
-              icon={icons.nameicon}
+              icon={icons.name}
               onChangeText={(value) => setForm({ ...form, name: value })}
             />
             <InputField
               label="Email"
               placeholder="Enter your email"
               value={form.email}
-              icon={icons.mailicon}
+              icon={icons.mail}
               onChangeText={(value) => setForm({ ...form, email: value })}
             />
             <InputField
               label="Password"
               placeholder="Enter your password"
               value={form.password}
-              icon={icons.passwordicon}
+              icon={icons.password}
               onChangeText={(value) => setForm({ ...form, password: value })}
               secureTextEntry={true}
             />
@@ -186,7 +186,7 @@ const SignUp = () => {
 
                 <InputField
                   label="Code"
-                  icon={icons.passwordicon}
+                  icon={icons.password}
                   placeholder="123456"
                   value={pendingVerification.code}
                   keyboardType="numeric"
