@@ -6,13 +6,16 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
+  Alert,
+  Modal,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, version } from "react";
 import InputField from "@/components/InputField";
 import { icons, images } from "@/constants";
 import CustomButton from "@/components/CustomButton";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import OAuth from "@/components/OAuth";
+import { useSignUp } from "@clerk/clerk-expo";
 
 const SignUp = () => {
   const [form, setForm] = useState({
@@ -20,6 +23,76 @@ const SignUp = () => {
     email: "",
     password: "",
   });
+
+  const { isLoaded, signUp, setActive } = useSignUp();
+
+  const [pendingVerification, setPendingVerification] = useState({
+    state: "default",
+    error: "",
+    code: "",
+  });
+
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+  // Handle submission of sign-up form
+  const onSignUpPress = async () => {
+    if (!isLoaded) return;
+
+    // Start sign-up process using email and password provided
+    try {
+      await signUp.create({
+        emailAddress: form.email,
+        password: form.password,
+      });
+
+      // Send user an email with verification code
+      await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
+
+      // Set 'pendingVerification' to true to display second form
+      // and capture OTP code
+      setPendingVerification({ ...pendingVerification, state: "pending" });
+    } catch (err: any) {
+      // See https://clerk.com/docs/custom-flows/error-handling
+      // for more info on error handling
+      Alert.alert("Error", err.errors[0].longMessage);
+    }
+  };
+
+  // Handle submission of verification form
+  const onVerifyPress = async () => {
+    if (!isLoaded) return;
+
+    try {
+      // Use the code the user provided to attempt verification
+      const signUpAttempt = await signUp.attemptEmailAddressVerification({
+        code: pendingVerification.code,
+      });
+
+      // If verification was completed, set the session to active
+      // and redirect the user
+      if (signUpAttempt.status === "complete") {
+        await setActive({ session: signUpAttempt.createdSessionId });
+        setPendingVerification({ ...pendingVerification, state: "success" });
+      } else {
+        // If the status is not complete, check why. User may need to
+        // complete further steps.
+        setPendingVerification({
+          ...pendingVerification,
+          error: "Verification failed.",
+          state: "failed",
+        });
+        console.error(JSON.stringify(signUpAttempt, null, 2));
+      }
+    } catch (err: any) {
+      // See https://clerk.com/docs/custom-flows/error-handling
+      // for more info on error handling
+      setPendingVerification({
+        ...pendingVerification,
+        error: err.errors[0].longMessage,
+        state: "failed",
+      });
+    }
+  };
 
   return (
     <KeyboardAvoidingView
@@ -66,8 +139,9 @@ const SignUp = () => {
 
             <CustomButton
               title="Sign Up"
-              titleStyles="text-[#1e7f7c]"
+              titleStyles="text-[#0c5555]"
               className="mt-10 border-sky-500 bg-sky-200/90 shadow-cyan-200"
+              onPress={onSignUpPress}
             />
 
             <OAuth />
@@ -90,6 +164,86 @@ const SignUp = () => {
               </Link>
             </View>
           </View>
+
+          <Modal
+            visible={pendingVerification.state === "pending"}
+            animationType="slide"
+            transparent={true}
+            onDismiss={() => {
+              if (pendingVerification.state === "success") {
+                setShowSuccessModal(true);
+              }
+            }}
+          >
+            <View className="flex-1 justify-center items-center bg-slate-200">
+              <View className="bg-white rounded-2xl border-2 px-5 py-8 min-h-[250px] max-w-md">
+                <Text className="text-2xl font-MontserratBold mb-2.5">
+                  Email Verification
+                </Text>
+                <Text className="font-MontserratMedium">
+                  We've sent a verification code to {form.email}
+                </Text>
+
+                <InputField
+                  label="Code"
+                  icon={icons.passwordicon}
+                  placeholder="123456"
+                  value={pendingVerification.code}
+                  keyboardType="numeric"
+                  onChangeText={(code) => {
+                    setPendingVerification({
+                      ...pendingVerification,
+                      code: code,
+                    });
+                  }}
+                />
+
+                {pendingVerification.error && (
+                  <Text className="text-red-600 text-sm">
+                    {pendingVerification.error}
+                  </Text>
+                )}
+
+                <CustomButton
+                  title="Verify Email"
+                  onPress={onVerifyPress}
+                  className="bg-sky-200 mt-6"
+                />
+              </View>
+            </View>
+          </Modal>
+
+          <Modal
+            visible={showSuccessModal}
+            animationType="slide"
+            transparent={true}
+          >
+            <View className="flex-1 justify-center items-center">
+              <View className="bg-white rounded-2xl border-2 px-5 py-8 min-h-[250px] max-w-md">
+                <Image
+                  source={images.verified}
+                  className="w-[300px] h-[300px]"
+                />
+
+                <Text className="font-MontserratSemiBold text-3xl text-center text-black">
+                  Verified
+                </Text>
+
+                <Text className="text-base text-gray-600 font-MontserratMedium text-center mt-2">
+                  You have successfully verified your account.
+                </Text>
+
+                <CustomButton
+                  title="Go Explore"
+                  onPress={() => {
+                    setShowSuccessModal(false);
+                    router.push("/(main)/(tabs)/home");
+                  }}
+                  className="mt-4"
+                />
+              </View>
+            </View>
+          </Modal>
         </ScrollView>
       </SafeAreaView>
     </KeyboardAvoidingView>
