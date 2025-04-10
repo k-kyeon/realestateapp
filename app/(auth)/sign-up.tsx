@@ -175,7 +175,7 @@ const SignUp = () => {
               }
             }}
           >
-            <View className="flex-1 justify-center items-center bg-slate-200">
+            <View className="flex-1 justify-center items-center bg-slate-400/50">
               <View className="bg-white rounded-2xl border-2 px-5 py-8 min-h-[250px] max-w-md">
                 <Text className="text-2xl font-MontserratBold mb-2.5">
                   Email Verification
@@ -218,7 +218,7 @@ const SignUp = () => {
             animationType="slide"
             transparent={true}
           >
-            <View className="flex-1 justify-center items-center">
+            <View className="flex-1 justify-center items-center bg-slate-400/50">
               <View className="bg-white rounded-2xl border-2 px-5 py-8 min-h-[250px] max-w-md">
                 <Image
                   source={images.verified}
