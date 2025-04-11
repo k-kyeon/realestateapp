@@ -22,7 +22,7 @@ const Home = () => {
   const data = [
     {
       property_id: "12345",
-      address: "USA",
+      address: "4390 Jail Drive, Los Angeles, CA, USA",
       city: "Los Angeles",
       state: "CA",
       zip_code: "29292",
@@ -36,7 +36,7 @@ const Home = () => {
     },
     {
       property_id: "23232",
-      address: "USA",
+      address: "4390 Jail Drive, Los Angeles, CA, USA",
       city: "Carlsbad",
       state: "CA",
       zip_code: "12451",
@@ -50,7 +50,7 @@ const Home = () => {
     },
     {
       property_id: "63454",
-      address: "USA",
+      address: "4390 Jail Drive, Los Angeles, CA, USA",
       city: "Sacramento",
       state: "CA",
       zip_code: "76474",
@@ -77,6 +77,7 @@ const Home = () => {
         <Text>Feed</Text>
         <Image source={icons.menu} className="w-5 h-5" resizeMode="contain" />
       </View>
+
       <View className="w-full p-5">
         <Text>Explore Now</Text>
         <FlatList
@@ -95,6 +96,7 @@ const Home = () => {
           horizontal
         />
       </View>
+
       <View>
         <View className="flex flex-row justify-between items-center">
           <Text>Recommended Homes</Text>
@@ -103,17 +105,45 @@ const Home = () => {
         <FlatList
           data={data}
           renderItem={({ item }) => (
-            <View className="w-full">
+            <View className="">
               <Image
                 source={{ uri: item.property_image }}
                 resizeMode="contain"
-                className="w-880 h-80"
+                className="w-100 h-80"
               />
-              <Text>{item.city}</Text>
+              <View className="flex flex-row">
+                <View className="flex flex-row border rounded-md justify-center items-center p-2 gap-2">
+                  <Image
+                    source={icons.home}
+                    resizeMode="contain"
+                    className="w-4 h-4"
+                  />
+                  <Text className="text-md">{item.bedrooms} beds</Text>
+                </View>
+                <View className="flex flex-row border rounded-md justify-center items-center p-2 gap-2">
+                  <Image
+                    source={icons.home}
+                    resizeMode="contain"
+                    className="w-4 h-4"
+                  />
+                  <Text className="text-md">{item.bathrooms} baths</Text>
+                </View>
+                <View className="flex flex-row border rounded-md justify-center items-center p-2 gap-2">
+                  <Image
+                    source={icons.home}
+                    resizeMode="contain"
+                    className="w-4 h-4"
+                  />
+                  <Text className="text-md">{item.square_footage} sq ft</Text>
+                </View>
+              </View>
+              <Text>{item.estimated_price}</Text>
+              <Text>{item.address}</Text>
             </View>
           )}
           keyExtractor={(item) => item?.property_id}
           contentContainerStyle={{ columnGap: 10 }}
+          horizontal
         />
       </View>
     </SafeAreaView>
