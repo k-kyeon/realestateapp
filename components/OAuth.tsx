@@ -18,7 +18,7 @@ const OAuth = () => {
         className="mt-5 w-full"
         LeftIcon={() => (
           <Image
-            source={icons.googleicon}
+            source={icons.google}
             resizeMode="contain"
             className="w-5 h-5 mx-3.5"
           />
