@@ -2,11 +2,17 @@ import onboarding1 from "@/assets/images/onboarding1.png";
 import onboarding2 from "@/assets/images/onboarding2.png";
 import onboarding3 from "@/assets/images/onboarding3.png";
 import signup from "@/assets/images/signup.png";
-import mailicon from "@/assets/icons/mailicon.png";
-import passwordicon from "@/assets/icons/passwordicon.png";
-import nameicon from "@/assets/icons/nameicon.png";
-import googleicon from "@/assets/icons/googleicon.png";
+import mail from "@/assets/icons/mail.png";
+import password from "@/assets/icons/password.png";
+import name from "@/assets/icons/name.png";
+import google from "@/assets/icons/google.png";
 import verified from "@/assets/images/verified.png";
+import bookmark from "@/assets/icons/bookmark.png";
+import home from "@/assets/icons/home.png";
+import leftArrow from "@/assets/icons/left-arrow.png";
+import profile from "@/assets/icons/profile.png";
+import logout from "@/assets/icons/logout.png";
+import chat from "@/assets/icons/chat.png";
 
 export const images = {
   onboarding1,
@@ -17,10 +23,16 @@ export const images = {
 };
 
 export const icons = {
-  mailicon,
-  passwordicon,
-  nameicon,
-  googleicon,
+  mail,
+  password,
+  name,
+  google,
+  bookmark,
+  home,
+  leftArrow,
+  profile,
+  logout,
+  chat,
 };
 
 export const onboarding = [
