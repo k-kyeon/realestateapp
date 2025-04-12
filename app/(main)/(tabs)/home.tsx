@@ -26,7 +26,7 @@ const Home = () => {
       city: "Los Angeles",
       state: "CA",
       zip_code: "29292",
-      property_image: "https://picsum.photos/200/300?random=1",
+      property_image: "https://picsum.photos/200/300?random=3",
       property_type: "single_family",
       square_footage: 3000,
       bedrooms: 2,
@@ -70,10 +70,10 @@ const Home = () => {
     <SafeAreaView className="flex">
       <View className="flex flex-row justify-between items-center px-5 py-2">
         <TouchableOpacity>
-          <View className="border rounded-full p-2 border-slate-500">
+          <View className="border rounded-full border-slate-500">
             <Image
-              source={icons.profile}
-              className="w-5 h-5"
+              source={icons.avatar}
+              className="w-10 h-10"
               resizeMode="contain"
             />
           </View>
@@ -117,13 +117,13 @@ const Home = () => {
         <FlatList
           data={data}
           renderItem={({ item }) => (
-            <View className="">
+            <View className=" border">
               <Image
                 source={{ uri: item.property_image }}
                 resizeMode="contain"
                 className="w-100 h-80"
               />
-              <View className="flex flex-row">
+              <View className="flex flex-row px-2 mx-2 gap-1.5">
                 <View className="flex flex-row border rounded-md justify-center items-center p-2 gap-2">
                   <Image
                     source={icons.home}
@@ -149,8 +149,12 @@ const Home = () => {
                   <Text className="text-md">{item.square_footage} sq ft</Text>
                 </View>
               </View>
-              <Text>{item.estimated_price}</Text>
-              <Text>{item.address}</Text>
+              <Text className="text-2xl font-MontserratBold">
+                ${item.estimated_price}
+              </Text>
+              <Text className="text-2xl font-MontserratLight">
+                {item.address}
+              </Text>
             </View>
           )}
           keyExtractor={(item) => item?.property_id}
