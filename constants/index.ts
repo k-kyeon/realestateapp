@@ -15,6 +15,7 @@ import logout from "@/assets/icons/logout.png";
 import chat from "@/assets/icons/chat.png";
 import menu from "@/assets/icons/menu.png";
 import search from "@/assets/icons/search.png";
+import avatar from "@/assets/icons/avatar.png";
 
 export const images = {
   onboarding1,
@@ -37,6 +38,7 @@ export const icons = {
   chat,
   menu,
   search,
+  avatar,
 };
 
 export const onboarding = [
