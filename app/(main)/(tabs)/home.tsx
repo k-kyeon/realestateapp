@@ -68,18 +68,26 @@ const Home = () => {
 
   return (
     <SafeAreaView className="flex">
-      <View className="flex flex-row justify-center items-center">
-        <Image
-          source={icons.leftArrow}
-          className="w-5 h-5"
-          resizeMode="contain"
-        />
-        <Text>Feed</Text>
-        <Image source={icons.menu} className="w-5 h-5" resizeMode="contain" />
+      <View className="flex flex-row justify-between items-center px-5 py-2">
+        <TouchableOpacity>
+          <View className="border rounded-full p-2 border-slate-500">
+            <Image
+              source={icons.profile}
+              className="w-5 h-5"
+              resizeMode="contain"
+            />
+          </View>
+        </TouchableOpacity>
+        <Text className="font-MontserratBold text-2xl">Feed</Text>
+        <TouchableOpacity>
+          <Image source={icons.menu} className="w-5 h-5" resizeMode="contain" />
+        </TouchableOpacity>
       </View>
 
       <View className="w-full p-5">
-        <Text>Explore Now</Text>
+        <Text className="font-MontserratSemiBold text-xl mb-3">
+          Explore Now
+        </Text>
         <FlatList
           data={propertyTypes}
           keyExtractor={(item) => item}
@@ -98,9 +106,13 @@ const Home = () => {
       </View>
 
       <View>
-        <View className="flex flex-row justify-between items-center">
-          <Text>Recommended Homes</Text>
-          <Text>See All</Text>
+        <View className="flex flex-row justify-between items-center p-5">
+          <Text className="font-MontserratMedium text-lg">
+            Recommended Homes
+          </Text>
+          <TouchableOpacity>
+            <Text className="font-MontserratSemiBold text-lg">See All</Text>
+          </TouchableOpacity>
         </View>
         <FlatList
           data={data}
