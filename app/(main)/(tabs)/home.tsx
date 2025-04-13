@@ -96,6 +96,7 @@ const Home = () => {
               className={`border rounded-full py-2 px-3 ${
                 activePropertyType === item ? "bg-[#b8c0d3]" : ""
               }`}
+              onPress={() => setActivePropertyType(item)}
             >
               <Text>{item}</Text>
             </TouchableOpacity>
@@ -117,13 +118,15 @@ const Home = () => {
         <FlatList
           data={data}
           renderItem={({ item }) => (
-            <View className=" border">
-              <Image
-                source={{ uri: item.property_image }}
-                resizeMode="contain"
-                className="w-100 h-80"
-              />
-              <View className="flex flex-row px-2 mx-2 gap-1.5">
+            <View className="border rounded-xl p-3 ml-5">
+              <View className="p-2">
+                <Image
+                  source={{ uri: item.property_image }}
+                  resizeMode="contain"
+                  className="w-80 h-80"
+                />
+              </View>
+              <View className="flex flex-row gap-1.5">
                 <View className="flex flex-row border rounded-md justify-center items-center p-2 gap-2">
                   <Image
                     source={icons.home}
