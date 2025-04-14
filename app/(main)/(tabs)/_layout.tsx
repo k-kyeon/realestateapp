@@ -61,6 +61,16 @@ const Layout = () => (
       }}
     />
     <Tabs.Screen
+      name="search"
+      options={{
+        title: "Search",
+        headerShown: false,
+        tabBarIcon: ({ focused }: { focused: boolean }) => (
+          <TabIcon focused={focused} source={icons.search} />
+        ),
+      }}
+    />
+    <Tabs.Screen
       name="saved"
       options={{
         title: "Saved",
