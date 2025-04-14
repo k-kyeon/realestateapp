@@ -187,7 +187,6 @@ const Home = () => {
             keyExtractor={(item) => item?.property_id}
             contentContainerStyle={{ columnGap: 10 }}
             horizontal
-            maxToRenderPerBatch={2}
           />
 
           <View className="flex flex-row justify-between items-center py-3 mt-4">
@@ -211,7 +210,7 @@ const Home = () => {
                     />
                   </View>
 
-                  <View>
+                  <View className="flex-1 justify-between">
                     <View className="flex flex-row gap-1.5">
                       <View className="flex flex-row border rounded-md justify-center items-center p-1 gap-2">
                         <Image
@@ -230,10 +229,15 @@ const Home = () => {
                         <Text className="text-md">{item.bathrooms} baths</Text>
                       </View>
                     </View>
+
                     <Text className="text-xl font-MontserratBold">
                       ${item.estimated_price}
                     </Text>
-                    <Text className="text-lgl font-MontserratLight">
+                    <Text
+                      className="text-lgl font-MontserratLight"
+                      numberOfLines={1}
+                      ellipsizeMode="tail"
+                    >
                       {item.address}
                     </Text>
                   </View>
