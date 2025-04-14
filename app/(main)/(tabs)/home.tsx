@@ -139,8 +139,8 @@ const Home = () => {
             data={data.slice(0, 3)}
             renderItem={({ item }) => (
               <TouchableOpacity className="rounded-xl">
-                <View className="w-auto h-[420px] border rounded-xl p-3 gap-y-2">
-                  <View className="p-2 border rounded-md">
+                <View className="w-auto h-[420px] rounded-xl p-3 gap-y-2 bg-white border">
+                  <View className="p-2 border border-[#c1cdcd] rounded-md">
                     <Image
                       source={{ uri: item.property_image }}
                       resizeMode="contain"
@@ -148,7 +148,7 @@ const Home = () => {
                     />
                   </View>
                   <View className="flex flex-row gap-1.5">
-                    <View className="flex flex-row border rounded-md justify-center items-center p-2 gap-2">
+                    <View className="flex flex-row border border-[#c1cdcd] rounded-md justify-center items-center p-2 gap-2">
                       <Image
                         source={icons.home}
                         resizeMode="contain"
@@ -156,7 +156,7 @@ const Home = () => {
                       />
                       <Text className="text-md">{item.bedrooms} beds</Text>
                     </View>
-                    <View className="flex flex-row border rounded-md justify-center items-center p-2 gap-2">
+                    <View className="flex flex-row border border-[#c1cdcd] rounded-md justify-center items-center p-2 gap-2">
                       <Image
                         source={icons.home}
                         resizeMode="contain"
@@ -164,7 +164,7 @@ const Home = () => {
                       />
                       <Text className="text-md">{item.bathrooms} baths</Text>
                     </View>
-                    <View className="flex flex-row border rounded-md justify-center items-center p-2 gap-2">
+                    <View className="flex flex-row border border-[#c1cdcd] rounded-md justify-center items-center p-2 gap-2">
                       <Image
                         source={icons.home}
                         resizeMode="contain"
@@ -187,7 +187,6 @@ const Home = () => {
             keyExtractor={(item) => item?.property_id}
             contentContainerStyle={{ columnGap: 10 }}
             horizontal
-            maxToRenderPerBatch={2}
           />
 
           <View className="flex flex-row justify-between items-center py-3 mt-4">
@@ -201,7 +200,7 @@ const Home = () => {
 
           {data.map((item) => (
             <TouchableOpacity key={item.property_id} className="w-full">
-              <View className="w-full h-[110px] border rounded-xl p-3 my-2">
+              <View className="w-full h-[110px] border bg-white rounded-xl p-3 my-2">
                 <View className="flex flex-row gap-x-2">
                   <View className="p-2 border rounded-md">
                     <Image
@@ -211,7 +210,7 @@ const Home = () => {
                     />
                   </View>
 
-                  <View>
+                  <View className="flex-1 justify-between">
                     <View className="flex flex-row gap-1.5">
                       <View className="flex flex-row border rounded-md justify-center items-center p-1 gap-2">
                         <Image
@@ -230,10 +229,15 @@ const Home = () => {
                         <Text className="text-md">{item.bathrooms} baths</Text>
                       </View>
                     </View>
+
                     <Text className="text-xl font-MontserratBold">
                       ${item.estimated_price}
                     </Text>
-                    <Text className="text-lgl font-MontserratLight">
+                    <Text
+                      className="text-lgl font-MontserratLight"
+                      numberOfLines={1}
+                      ellipsizeMode="tail"
+                    >
                       {item.address}
                     </Text>
                   </View>
