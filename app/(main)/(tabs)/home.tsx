@@ -26,7 +26,7 @@ const Home = () => {
       city: "Los Angeles",
       state: "CA",
       zip_code: "29292",
-      property_image: "https://picsum.photos/200/300?random=3",
+      property_image: "https://loremflickr.com/200/200?random=1",
       property_type: "single_family",
       square_footage: 3000,
       bedrooms: 2,
@@ -62,13 +62,27 @@ const Home = () => {
       estimated_price: 3700000,
       year_built: 2021,
     },
+    {
+      property_id: "63224",
+      address: "4390 Jail Drive, Los Angeles, CA, USA",
+      city: "Culver City",
+      state: "CA",
+      zip_code: "46574",
+      property_image: "https://loremflickr.com/200/200?random=1",
+      property_type: "duplex",
+      square_footage: 2100,
+      bedrooms: 2,
+      bathrooms: 2.5,
+      estimated_price: 1700000,
+      year_built: 2011,
+    },
   ];
 
   const [activePropertyType, setActivePropertyType] = useState("Apartments");
 
   return (
     <SafeAreaView className="flex">
-      <ScrollView>
+      <ScrollView className="mb-20">
         <View className="flex flex-row justify-between items-center px-5 py-2">
           <TouchableOpacity>
             <View className="border rounded-full border-slate-500">
@@ -98,7 +112,7 @@ const Home = () => {
             keyExtractor={(item) => item}
             renderItem={({ item }) => (
               <TouchableOpacity
-                className={`border rounded-full py-2 px-3 ${
+                className={`border rounded-xl py-2 px-3 ${
                   activePropertyType === item ? "bg-[#b8c0d3]" : ""
                 }`}
                 onPress={() => setActivePropertyType(item)}
@@ -111,9 +125,9 @@ const Home = () => {
           />
         </View>
 
-        <View>
-          <View className="flex flex-row justify-between items-center p-5">
-            <Text className="font-MontserratMedium text-lg">
+        <View className="mx-5">
+          <View className="flex flex-row justify-between items-center py-3">
+            <Text className="font-MontserratSemiBold text-lg">
               Recommended Homes
             </Text>
             <TouchableOpacity>
@@ -122,65 +136,72 @@ const Home = () => {
           </View>
 
           <FlatList
-            data={data}
+            data={data.slice(0, 3)}
             renderItem={({ item }) => (
-              <View className="w-[360px] h-[450px] border rounded-xl p-3 ml-5 gap-y-2">
-                <View className="p-2 border rounded-md">
-                  <Image
-                    source={{ uri: item.property_image }}
-                    resizeMode="contain"
-                    className="w-80 h-80"
-                  />
+              <TouchableOpacity className="rounded-xl">
+                <View className="w-auto h-[420px] border rounded-xl p-3 gap-y-2">
+                  <View className="p-2 border rounded-md">
+                    <Image
+                      source={{ uri: item.property_image }}
+                      resizeMode="contain"
+                      className="w-80 h-80"
+                    />
+                  </View>
+                  <View className="flex flex-row gap-1.5">
+                    <View className="flex flex-row border rounded-md justify-center items-center p-2 gap-2">
+                      <Image
+                        source={icons.home}
+                        resizeMode="contain"
+                        className="w-4 h-4"
+                      />
+                      <Text className="text-md">{item.bedrooms} beds</Text>
+                    </View>
+                    <View className="flex flex-row border rounded-md justify-center items-center p-2 gap-2">
+                      <Image
+                        source={icons.home}
+                        resizeMode="contain"
+                        className="w-4 h-4"
+                      />
+                      <Text className="text-md">{item.bathrooms} baths</Text>
+                    </View>
+                    <View className="flex flex-row border rounded-md justify-center items-center p-2 gap-2">
+                      <Image
+                        source={icons.home}
+                        resizeMode="contain"
+                        className="w-4 h-4"
+                      />
+                      <Text className="text-md">
+                        {item.square_footage} sq ft
+                      </Text>
+                    </View>
+                  </View>
+                  <Text className="text-2xl font-MontserratBold">
+                    ${item.estimated_price}
+                  </Text>
+                  <Text className="text-2xl font-MontserratLight">
+                    {item.address}
+                  </Text>
                 </View>
-                <View className="flex flex-row gap-1.5">
-                  <View className="flex flex-row border rounded-md justify-center items-center p-2 gap-2">
-                    <Image
-                      source={icons.home}
-                      resizeMode="contain"
-                      className="w-4 h-4"
-                    />
-                    <Text className="text-md">{item.bedrooms} beds</Text>
-                  </View>
-                  <View className="flex flex-row border rounded-md justify-center items-center p-2 gap-2">
-                    <Image
-                      source={icons.home}
-                      resizeMode="contain"
-                      className="w-4 h-4"
-                    />
-                    <Text className="text-md">{item.bathrooms} baths</Text>
-                  </View>
-                  <View className="flex flex-row border rounded-md justify-center items-center p-2 gap-2">
-                    <Image
-                      source={icons.home}
-                      resizeMode="contain"
-                      className="w-4 h-4"
-                    />
-                    <Text className="text-md">{item.square_footage} sq ft</Text>
-                  </View>
-                </View>
-                <Text className="text-2xl font-MontserratBold">
-                  ${item.estimated_price}
-                </Text>
-                <Text className="text-2xl font-MontserratLight">
-                  {item.address}
-                </Text>
-              </View>
+              </TouchableOpacity>
             )}
             keyExtractor={(item) => item?.property_id}
             contentContainerStyle={{ columnGap: 10 }}
             horizontal
+            maxToRenderPerBatch={2}
           />
 
-          <View className="flex flex-row justify-between items-center p-5">
-            <Text className="font-MontserratMedium text-lg">Popular Homes</Text>
+          <View className="flex flex-row justify-between items-center py-3 mt-4">
+            <Text className="font-MontserratSemiBold text-lg">
+              Popular Homes
+            </Text>
             <TouchableOpacity>
               <Text className="font-MontserratSemiBold text-lg">See All</Text>
             </TouchableOpacity>
           </View>
 
           {data.map((item) => (
-            <ScrollView>
-              <View className="w-[360px] h-[110px] border rounded-xl p-3 ml-5 ">
+            <TouchableOpacity key={item.property_id} className="w-full">
+              <View className="w-full h-[110px] border rounded-xl p-3 my-2">
                 <View className="flex flex-row gap-x-2">
                   <View className="p-2 border rounded-md">
                     <Image
@@ -192,7 +213,7 @@ const Home = () => {
 
                   <View>
                     <View className="flex flex-row gap-1.5">
-                      <View className="flex flex-row border rounded-md justify-center items-center p-2 gap-2">
+                      <View className="flex flex-row border rounded-md justify-center items-center p-1 gap-2">
                         <Image
                           source={icons.home}
                           resizeMode="contain"
@@ -200,7 +221,7 @@ const Home = () => {
                         />
                         <Text className="text-md">{item.bedrooms} beds</Text>
                       </View>
-                      <View className="flex flex-row border rounded-md justify-center items-center p-2 gap-2">
+                      <View className="flex flex-row border rounded-md justify-center items-center p-1 gap-2">
                         <Image
                           source={icons.home}
                           resizeMode="contain"
@@ -208,27 +229,17 @@ const Home = () => {
                         />
                         <Text className="text-md">{item.bathrooms} baths</Text>
                       </View>
-                      <View className="flex flex-row border rounded-md justify-center items-center p-2 gap-2">
-                        <Image
-                          source={icons.home}
-                          resizeMode="contain"
-                          className="w-4 h-4"
-                        />
-                        <Text className="text-md">
-                          {item.square_footage} sq ft
-                        </Text>
-                      </View>
                     </View>
                     <Text className="text-xl font-MontserratBold">
                       ${item.estimated_price}
                     </Text>
-                    <Text className="text-xl font-MontserratLight">
+                    <Text className="text-lgl font-MontserratLight">
                       {item.address}
                     </Text>
                   </View>
                 </View>
               </View>
-            </ScrollView>
+            </TouchableOpacity>
           ))}
         </View>
       </ScrollView>
