@@ -16,6 +16,7 @@ import chat from "@/assets/icons/chat.png";
 import menu from "@/assets/icons/menu.png";
 import search from "@/assets/icons/search.png";
 import avatar from "@/assets/icons/avatar.png";
+import revise from "@/assets/icons/revise.png";
 
 export const images = {
   onboarding1,
@@ -39,6 +40,7 @@ export const icons = {
   menu,
   search,
   avatar,
+  revise,
 };
 
 export const onboarding = [
