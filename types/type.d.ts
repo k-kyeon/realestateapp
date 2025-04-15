@@ -19,4 +19,5 @@ declare interface InputFieldProps extends TextInputProps {
   className?: string;
   iconLeft?: boolean;
   iconRight?: boolean;
+  onIconPress?: () => void;
 }
