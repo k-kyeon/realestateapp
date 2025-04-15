@@ -18,6 +18,7 @@ import search from "@/assets/icons/search.png";
 import avatar from "@/assets/icons/avatar.png";
 import revise from "@/assets/icons/revise.png";
 import check from "@/assets/icons/check.png";
+import close from "@/assets/icons/close.png";
 
 export const images = {
   onboarding1,
@@ -43,6 +44,7 @@ export const icons = {
   avatar,
   revise,
   check,
+  close,
 };
 
 export const onboarding = [
