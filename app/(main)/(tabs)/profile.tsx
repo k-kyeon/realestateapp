@@ -21,6 +21,19 @@ const Profile = () => {
     null
   );
 
+  const getIcon = (field: "firstName" | "lastName") => {
+    const current = field === "firstName" ? firstName.trim() : lastName.trim();
+    const original =
+      field === "firstName" ? user?.firstName?.trim() : user?.lastName?.trim();
+
+    if (editField !== field) return icons.revise;
+
+    // In edit mode
+    if (!current || current === original) return icons.close;
+
+    return icons.check;
+  };
+
   const handleSave = async () => {
     try {
       if (!user) return;
@@ -47,8 +60,20 @@ const Profile = () => {
   };
 
   const toggleEdit = (field: typeof editField) => {
+    const current = field === "firstName" ? firstName.trim() : lastName.trim();
+    const original =
+      field === "firstName" ? user?.firstName?.trim() : user?.lastName?.trim();
+
     if (editField === field) {
-      handleSave();
+      if (!current || current === original) {
+        // Cancel edit
+        if (field === "firstName") setFirstName(original || "");
+        if (field === "lastName") setLastName(original || "");
+        setEditField(null);
+      } else {
+        // Save
+        handleSave();
+      }
     } else {
       setEditField(field);
     }
@@ -72,13 +97,7 @@ const Profile = () => {
             label="First name"
             placeholder={user?.firstName || "Not Found"}
             editable={editField === "firstName"}
-            icon={
-              editField === "firstName"
-                ? firstName.trim()
-                  ? icons.check
-                  : icons.close
-                : icons.revise
-            }
+            icon={getIcon("firstName")}
             iconRight={true}
             iconStyle="mr-0.5"
             value={firstName}
@@ -90,13 +109,7 @@ const Profile = () => {
             label="Last name"
             placeholder={user?.lastName || "Not Found"}
             editable={editField === "lastName"}
-            icon={
-              editField === "lastName"
-                ? lastName.trim()
-                  ? icons.check
-                  : icons.close
-                : icons.revise
-            }
+            icon={getIcon("lastName")}
             iconRight={true}
             iconStyle="mr-0.5"
             value={lastName}
