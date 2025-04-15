@@ -5,6 +5,7 @@ import {
   Image,
   Keyboard,
   TextInput,
+  TouchableOpacity,
 } from "react-native";
 import React from "react";
 import { InputFieldProps } from "@/types/type";
@@ -19,6 +20,7 @@ const InputField = ({
   labelStyle,
   iconLeft,
   iconRight,
+  onIconPress,
   ...props
 }: InputFieldProps) => {
   return (
@@ -59,8 +61,26 @@ const InputField = ({
             />
 
             {icon && (
-              <Image source={icon} className={`w-6 h-6 mx-2.5 ${iconStyle}`} />
+              <TouchableOpacity onPress={onIconPress}>
+                <Image
+                  source={icon}
+                  className={`w-6 h-6 mx-2.5 ${iconStyle}`}
+                />
+              </TouchableOpacity>
             )}
+          </View>
+        )}
+
+        {!iconLeft && !iconRight && (
+          <View
+            className={`flex flex-row justify-start items-center rounded-2xl border border-sky-950 bg-[#f7f9f8] p-4 focus:border-cyan-400 ${containerStyle}`}
+          >
+            <TextInput
+              className={`flex-1 font-MontserratMedium text-[14px] border-x-slate-600 ${inputStyle}`}
+              secureTextEntry={secureTextEntry}
+              placeholderTextColor={"#939d9d"}
+              {...props}
+            />
           </View>
         )}
       </View>
