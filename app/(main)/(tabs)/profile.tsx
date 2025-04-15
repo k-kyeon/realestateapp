@@ -72,7 +72,13 @@ const Profile = () => {
             label="First name"
             placeholder={user?.firstName || "Not Found"}
             editable={editField === "firstName"}
-            icon={editField === "firstName" ? icons.check : icons.revise}
+            icon={
+              editField === "firstName"
+                ? firstName.trim()
+                  ? icons.check
+                  : icons.close
+                : icons.revise
+            }
             iconRight={true}
             iconStyle="mr-0.5"
             value={firstName}
@@ -84,7 +90,13 @@ const Profile = () => {
             label="Last name"
             placeholder={user?.lastName || "Not Found"}
             editable={editField === "lastName"}
-            icon={editField === "lastName" ? icons.check : icons.revise}
+            icon={
+              editField === "lastName"
+                ? lastName.trim()
+                  ? icons.check
+                  : icons.close
+                : icons.revise
+            }
             iconRight={true}
             iconStyle="mr-0.5"
             value={lastName}
