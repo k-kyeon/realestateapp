@@ -19,6 +19,8 @@ import avatar from "@/assets/icons/avatar.png";
 import revise from "@/assets/icons/revise.png";
 import check from "@/assets/icons/check.png";
 import close from "@/assets/icons/close.png";
+import bathtub from "@/assets/icons/bathtub.png";
+import bed from "@/assets/icons/bed.png";
 
 export const images = {
   onboarding1,
@@ -45,6 +47,8 @@ export const icons = {
   revise,
   check,
   close,
+  bed,
+  bathtub,
 };
 
 export const onboarding = [
