@@ -113,7 +113,7 @@ const Home = () => {
             renderItem={({ item }) => (
               <TouchableOpacity
                 className={`border rounded-xl py-2 px-3 ${
-                  activePropertyType === item ? "bg-[#b8c0d3]" : ""
+                  activePropertyType === item ? "bg-[#c1cdcd]" : ""
                 }`}
                 onPress={() => setActivePropertyType(item)}
               >
@@ -121,6 +121,7 @@ const Home = () => {
               </TouchableOpacity>
             )}
             contentContainerStyle={{ columnGap: 8 }}
+            showsHorizontalScrollIndicator={false}
             horizontal
           />
         </View>
@@ -139,32 +140,32 @@ const Home = () => {
             data={data.slice(0, 3)}
             renderItem={({ item }) => (
               <TouchableOpacity className="rounded-xl">
-                <View className="w-auto h-[420px] rounded-xl p-3 gap-y-2 bg-white border">
-                  <View className="p-2 border border-[#c1cdcd] rounded-md">
+                <View className="w-auto h-[355px] rounded-xl p-3 gap-y-2 bg-white">
+                  <View className="p-2 border border-neutral-300 rounded-md">
                     <Image
                       source={{ uri: item.property_image }}
                       resizeMode="contain"
-                      className="w-80 h-80"
+                      className="w-80 h-60"
                     />
                   </View>
                   <View className="flex flex-row gap-1.5">
-                    <View className="flex flex-row border border-[#c1cdcd] rounded-md justify-center items-center p-2 gap-2">
+                    <View className="flex flex-row border border-neutral-300 rounded-lg justify-center items-center p-2 gap-2">
                       <Image
-                        source={icons.home}
+                        source={icons.bed}
                         resizeMode="contain"
                         className="w-4 h-4"
                       />
                       <Text className="text-md">{item.bedrooms} beds</Text>
                     </View>
-                    <View className="flex flex-row border border-[#c1cdcd] rounded-md justify-center items-center p-2 gap-2">
+                    <View className="flex flex-row border border-neutral-300 rounded-lg justify-center items-center p-2 gap-2">
                       <Image
-                        source={icons.home}
+                        source={icons.bathtub}
                         resizeMode="contain"
                         className="w-4 h-4"
                       />
                       <Text className="text-md">{item.bathrooms} baths</Text>
                     </View>
-                    <View className="flex flex-row border border-[#c1cdcd] rounded-md justify-center items-center p-2 gap-2">
+                    <View className="flex flex-row border border-neutral-300 rounded-lg justify-center items-center p-2 gap-2">
                       <Image
                         source={icons.home}
                         resizeMode="contain"
@@ -175,17 +176,18 @@ const Home = () => {
                       </Text>
                     </View>
                   </View>
-                  <Text className="text-2xl font-MontserratBold">
+                  <Text className="text-2xl font-MontserratRegular text-cyan-800">
                     ${item.estimated_price}
                   </Text>
-                  <Text className="text-2xl font-MontserratLight">
+                  <Text className="text-xl font-MontserratLight">
                     {item.address}
                   </Text>
                 </View>
               </TouchableOpacity>
             )}
             keyExtractor={(item) => item?.property_id}
-            contentContainerStyle={{ columnGap: 10 }}
+            contentContainerStyle={{ columnGap: 15 }}
+            showsHorizontalScrollIndicator={false}
             horizontal
           />
 
@@ -200,9 +202,9 @@ const Home = () => {
 
           {data.map((item) => (
             <TouchableOpacity key={item.property_id} className="w-full">
-              <View className="w-full h-[110px] border bg-white rounded-xl p-3 my-2">
+              <View className="w-full h-[110px] bg-white rounded-xl p-3 my-2">
                 <View className="flex flex-row gap-x-2">
-                  <View className="p-2 border rounded-md">
+                  <View className="p-2 border rounded-md border-neutral-300">
                     <Image
                       source={{ uri: item.property_image }}
                       resizeMode="contain"
@@ -214,7 +216,7 @@ const Home = () => {
                     <View className="flex flex-row gap-1.5">
                       <View className="flex flex-row border rounded-md justify-center items-center p-1 gap-2">
                         <Image
-                          source={icons.home}
+                          source={icons.bed}
                           resizeMode="contain"
                           className="w-4 h-4"
                         />
@@ -222,7 +224,7 @@ const Home = () => {
                       </View>
                       <View className="flex flex-row border rounded-md justify-center items-center p-1 gap-2">
                         <Image
-                          source={icons.home}
+                          source={icons.bathtub}
                           resizeMode="contain"
                           className="w-4 h-4"
                         />
@@ -230,11 +232,11 @@ const Home = () => {
                       </View>
                     </View>
 
-                    <Text className="text-xl font-MontserratBold">
+                    <Text className="text-xl font-MontserratThin text-cyan-800">
                       ${item.estimated_price}
                     </Text>
                     <Text
-                      className="text-lgl font-MontserratLight"
+                      className="text-lg font-MontserratLight"
                       numberOfLines={1}
                       ellipsizeMode="tail"
                     >
