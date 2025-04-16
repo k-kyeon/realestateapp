@@ -21,7 +21,7 @@ const Profile = () => {
     null
   );
 
-  const getIcon = (field: "firstName" | "lastName") => {
+  const getIcon = (field: typeof editField) => {
     const current = field === "firstName" ? firstName.trim() : lastName.trim();
     const original =
       field === "firstName" ? user?.firstName?.trim() : user?.lastName?.trim();
