@@ -20,7 +20,8 @@ import { fetchAPI } from "@/misc/fetch";
 
 const SignUp = () => {
   const [form, setForm] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
   });
@@ -42,6 +43,8 @@ const SignUp = () => {
     // Start sign-up process using email and password provided
     try {
       await signUp.create({
+        firstName: form.firstName,
+        lastName: form.lastName,
         emailAddress: form.email,
         password: form.password,
       });
@@ -75,7 +78,8 @@ const SignUp = () => {
         await fetchAPI("/(api)/user", {
           method: "POST",
           body: JSON.stringify({
-            name: form.name,
+            firstName: form.firstName,
+            lastName: form.lastName,
             email: form.email,
             clerkId: signUpAttempt.createdUserId,
           }),
@@ -125,12 +129,20 @@ const SignUp = () => {
 
           <View className="p-5">
             <InputField
-              label="Name"
-              placeholder="Enter your name"
-              value={form.name}
+              label="FIrst Name"
+              placeholder="Enter your first name"
+              value={form.firstName}
               icon={icons.name}
               iconLeft={true}
-              onChangeText={(value) => setForm({ ...form, name: value })}
+              onChangeText={(value) => setForm({ ...form, firstName: value })}
+            />
+            <InputField
+              label="Last Name"
+              placeholder="Enter your last name"
+              value={form.lastName}
+              icon={icons.name}
+              iconLeft={true}
+              onChangeText={(value) => setForm({ ...form, lastName: value })}
             />
             <InputField
               label="Email"
