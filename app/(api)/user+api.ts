@@ -10,7 +10,7 @@ export async function POST(request: Request) {
         {
           error: "Missing some required fields",
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
