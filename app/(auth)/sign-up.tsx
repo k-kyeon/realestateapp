@@ -9,17 +9,19 @@ import {
   Alert,
   Modal,
 } from "react-native";
-import React, { useState, version } from "react";
+import React, { useState } from "react";
 import InputField from "@/components/InputField";
 import { icons, images } from "@/constants";
 import CustomButton from "@/components/CustomButton";
 import { Link, router } from "expo-router";
 import OAuth from "@/components/OAuth";
 import { useSignUp } from "@clerk/clerk-expo";
+import { fetchAPI } from "@/misc/fetch";
 
 const SignUp = () => {
   const [form, setForm] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
   });
@@ -41,6 +43,8 @@ const SignUp = () => {
     // Start sign-up process using email and password provided
     try {
       await signUp.create({
+        firstName: form.firstName,
+        lastName: form.lastName,
         emailAddress: form.email,
         password: form.password,
       });
@@ -71,6 +75,16 @@ const SignUp = () => {
       // If verification was completed, set the session to active
       // and redirect the user
       if (signUpAttempt.status === "complete") {
+        await fetchAPI("/(api)/user", {
+          method: "POST",
+          body: JSON.stringify({
+            firstName: form.firstName,
+            lastName: form.lastName,
+            email: form.email,
+            clerkId: signUpAttempt.createdUserId,
+          }),
+        });
+
         await setActive({ session: signUpAttempt.createdSessionId });
         setPendingVerification({ ...pendingVerification, state: "success" });
       } else {
@@ -115,12 +129,20 @@ const SignUp = () => {
 
           <View className="p-5">
             <InputField
-              label="Name"
-              placeholder="Enter your name"
-              value={form.name}
+              label="FIrst Name"
+              placeholder="Enter your first name"
+              value={form.firstName}
               icon={icons.name}
               iconLeft={true}
-              onChangeText={(value) => setForm({ ...form, name: value })}
+              onChangeText={(value) => setForm({ ...form, firstName: value })}
+            />
+            <InputField
+              label="Last Name"
+              placeholder="Enter your last name"
+              value={form.lastName}
+              icon={icons.name}
+              iconLeft={true}
+              onChangeText={(value) => setForm({ ...form, lastName: value })}
             />
             <InputField
               label="Email"
