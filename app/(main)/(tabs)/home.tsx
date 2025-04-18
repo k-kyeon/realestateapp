@@ -149,7 +149,7 @@ const Home = () => {
                     />
                   </View>
                   <View className="flex flex-row gap-1.5">
-                    <View className="flex flex-row border border-neutral-300 rounded-lg justify-center items-center p-2 gap-2">
+                    <View className="flex flex-row border border-neutral-400 rounded-lg justify-center items-center p-2 gap-2">
                       <Image
                         source={icons.bed}
                         resizeMode="contain"
@@ -157,7 +157,7 @@ const Home = () => {
                       />
                       <Text className="text-md">{item.bedrooms} beds</Text>
                     </View>
-                    <View className="flex flex-row border border-neutral-300 rounded-lg justify-center items-center p-2 gap-2">
+                    <View className="flex flex-row border border-neutral-400 rounded-lg justify-center items-center p-2 gap-2">
                       <Image
                         source={icons.bathtub}
                         resizeMode="contain"
@@ -165,7 +165,7 @@ const Home = () => {
                       />
                       <Text className="text-md">{item.bathrooms} baths</Text>
                     </View>
-                    <View className="flex flex-row border border-neutral-300 rounded-lg justify-center items-center p-2 gap-2">
+                    <View className="flex flex-row border border-neutral-400 rounded-lg justify-center items-center p-2 gap-2">
                       <Image
                         source={icons.home}
                         resizeMode="contain"
@@ -214,7 +214,7 @@ const Home = () => {
 
                   <View className="flex-1 justify-between">
                     <View className="flex flex-row gap-1.5">
-                      <View className="flex flex-row border rounded-md justify-center items-center p-1 gap-2">
+                      <View className="flex flex-row border border-neutral-400 rounded-md justify-center items-center p-1 gap-2">
                         <Image
                           source={icons.bed}
                           resizeMode="contain"
@@ -222,7 +222,7 @@ const Home = () => {
                         />
                         <Text className="text-md">{item.bedrooms} beds</Text>
                       </View>
-                      <View className="flex flex-row border rounded-md justify-center items-center p-1 gap-2">
+                      <View className="flex flex-row border border-neutral-400 rounded-md justify-center items-center p-1 gap-2">
                         <Image
                           source={icons.bathtub}
                           resizeMode="contain"
