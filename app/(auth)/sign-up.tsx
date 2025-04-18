@@ -129,7 +129,7 @@ const SignUp = () => {
 
           <View className="p-5">
             <InputField
-              label="FIrst Name"
+              label="First Name"
               placeholder="Enter your first name"
               value={form.firstName}
               icon={icons.name}
