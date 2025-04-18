@@ -18,7 +18,7 @@ const Profile = () => {
   const [lastName, setLastName] = useState(user?.lastName || "");
 
   const [editField, setEditField] = useState<null | "firstName" | "lastName">(
-    null
+    null,
   );
 
   const getIcon = (field: typeof editField) => {
