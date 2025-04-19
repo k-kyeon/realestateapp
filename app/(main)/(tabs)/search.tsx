@@ -1,5 +1,6 @@
 import { View, Text, SafeAreaView, TextInput, Button } from "react-native";
 import React, { useState } from "react";
+import GoogleAutoCompleteInput from "@/components/GoogleAutoCompleteInput";
 
 const Search = () => {
   const [search, setSearch] = useState("");
@@ -8,11 +9,10 @@ const Search = () => {
     <SafeAreaView>
       <View className="p-10">
         <Text>Search</Text>
-        <TextInput
-          placeholder="e.g. Homes in Miami under 800k"
-          value={search}
-          onChangeText={setSearch}
-          className="border p-3 mb-2 rounded-lg"
+        <GoogleAutoCompleteInput
+          onLocationSelect={({ lat, lng, city, state }) => {
+            console.log("Location selected:", city, state, lat, lng);
+          }}
         />
         <Button title="Search" />
       </View>
