@@ -21,6 +21,7 @@ import check from "@/assets/icons/check.png";
 import close from "@/assets/icons/close.png";
 import bathtub from "@/assets/icons/bathtub.png";
 import bed from "@/assets/icons/bed.png";
+import filter from "@/assets/icons/filter.png";
 
 export const images = {
   onboarding1,
@@ -49,6 +50,7 @@ export const icons = {
   close,
   bed,
   bathtub,
+  filter,
 };
 
 export const onboarding = [
