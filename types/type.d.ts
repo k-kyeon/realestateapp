@@ -21,3 +21,13 @@ declare interface InputFieldProps extends TextInputProps {
   iconRight?: boolean;
   onIconPress?: () => void;
 }
+
+declare interface GoogleInputProps {
+  icon?: any;
+  onLocationSelect: (info: {
+    lat: number;
+    lng: number;
+    city?: string;
+    state?: string;
+  }) => void;
+}
