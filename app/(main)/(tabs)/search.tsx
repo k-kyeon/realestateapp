@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, TextInput, Button } from "react-native";
+import { View, Text, SafeAreaView, Button } from "react-native";
 import React, { useState } from "react";
 import GoogleAutoCompleteInput from "@/components/GoogleAutoCompleteInput";
 

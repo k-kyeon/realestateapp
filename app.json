@@ -10,7 +10,7 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.kkyeon.realestate"
+      "bundleIdentifier": "com.k-kyeon.realestate"
     },
     "android": {
       "adaptiveIcon": {
