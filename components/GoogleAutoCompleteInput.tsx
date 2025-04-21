@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { Image, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { GoogleInputProps } from "@/types/type";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
@@ -7,11 +7,11 @@ const googlePlacesApiKey = process.env.EXPO_PUBLIC_GOOGLE_API_KEY;
 
 const GoogleAutoCompleteInput = ({
   icon,
+  iconStyles,
   onLocationSelect,
 }: GoogleInputProps) => {
   return (
-    <View className="flex flex-row justify-center items-center">
-      {icon && <View className="">{icon}</View>}
+    <View className="flex flex-row justify-center items-center mx-2">
       <GooglePlacesAutocomplete
         fetchDetails
         placeholder="Search city (e.g. Miami)"
@@ -20,19 +20,22 @@ const GoogleAutoCompleteInput = ({
           language: "en",
         }}
         debounce={200}
+        textInputProps={{
+          placeholderTextColor: "#999999",
+        }}
         styles={{
           textInput: {
             backgroundColor: "white",
             fontSize: 15,
             fontWeight: "400",
             width: "100%",
-            borderRadius: 20,
+            borderRadius: 15,
           },
           textInputContainer: {
             justifyContent: "center",
             alignItems: "center",
             borderRadius: 20,
-            marginHorizontal: 20,
+            marginRight: 10,
             position: "relative",
             shadowColor: "#dbdbdb",
           },
@@ -64,6 +67,13 @@ const GoogleAutoCompleteInput = ({
           onLocationSelect({ lat, lng, city, state });
         }}
       />
+      {icon && (
+        <TouchableOpacity>
+          <View className={`border rounded-full p-3 ${iconStyles}`}>
+            <Image source={icon} className="w-5 h-5" resizeMode="contain" />
+          </View>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };

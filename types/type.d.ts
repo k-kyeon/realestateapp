@@ -24,6 +24,7 @@ declare interface InputFieldProps extends TextInputProps {
 
 declare interface GoogleInputProps {
   icon?: any;
+  iconStyles?: string;
   onLocationSelect: (info: {
     lat: number;
     lng: number;
