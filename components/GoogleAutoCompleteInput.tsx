@@ -11,7 +11,7 @@ const GoogleAutoCompleteInput = ({
   onLocationSelect,
 }: GoogleInputProps) => {
   return (
-    <View className="flex flex-row justify-center items-center">
+    <View className="flex flex-row justify-center items-center mx-2">
       <GooglePlacesAutocomplete
         fetchDetails
         placeholder="Search city (e.g. Miami)"
@@ -35,7 +35,7 @@ const GoogleAutoCompleteInput = ({
             justifyContent: "center",
             alignItems: "center",
             borderRadius: 20,
-            marginHorizontal: 20,
+            marginRight: 10,
             position: "relative",
             shadowColor: "#dbdbdb",
           },
