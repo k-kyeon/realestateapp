@@ -115,7 +115,7 @@ const Home = () => {
             renderItem={({ item }) => (
               <TouchableOpacity
                 className={`border rounded-xl py-2 px-3 ${
-                  activePropertyType === item ? "bg-[#c1cdcd]" : ""
+                  activePropertyType === item ? "bg-[#c8dade]" : ""
                 }`}
                 onPress={() => setActivePropertyType(item)}
               >
