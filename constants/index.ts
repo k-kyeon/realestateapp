@@ -24,6 +24,7 @@ import bed from "@/assets/icons/bed.png";
 import filter from "@/assets/icons/filter.png";
 import heartUnfilled from "@/assets/icons/heart-unfilled.png";
 import heartFilled from "@/assets/icons/heart-filled.png";
+import chatImage from "@/assets/images/chat-image.png";
 
 export const images = {
   onboarding1,
@@ -31,6 +32,7 @@ export const images = {
   onboarding3,
   signup,
   verified,
+  chatImage,
 };
 
 export const icons = {

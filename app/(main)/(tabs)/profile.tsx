@@ -80,7 +80,7 @@ const Profile = () => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView className="flex-1">
       <ScrollView className="px-5">
         <Text className="text-2xl font-MontserratBold my-3">My Profile</Text>
         <View className="flex items-center justify-center my-5 shadow-md shadow-slate-600">
