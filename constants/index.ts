@@ -22,6 +22,8 @@ import close from "@/assets/icons/close.png";
 import bathtub from "@/assets/icons/bathtub.png";
 import bed from "@/assets/icons/bed.png";
 import filter from "@/assets/icons/filter.png";
+import heartUnfilled from "@/assets/icons/heart-unfilled.png";
+import heartFilled from "@/assets/icons/heart-filled.png";
 
 export const images = {
   onboarding1,
@@ -51,6 +53,8 @@ export const icons = {
   bed,
   bathtub,
   filter,
+  heartUnfilled,
+  heartFilled,
 };
 
 export const onboarding = [

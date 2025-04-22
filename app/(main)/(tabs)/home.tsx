@@ -80,6 +80,8 @@ const Home = () => {
 
   const [activePropertyType, setActivePropertyType] = useState("Apartments");
 
+  const [liked, setLiked] = useState(false);
+
   return (
     <SafeAreaView className="flex">
       <ScrollView className="mb-20">
@@ -141,12 +143,26 @@ const Home = () => {
             renderItem={({ item }) => (
               <TouchableOpacity className="rounded-xl">
                 <View className="w-auto h-[355px] rounded-xl p-3 gap-y-2 bg-white">
-                  <View className="p-2 border border-neutral-300 rounded-md">
-                    <Image
-                      source={{ uri: item.property_image }}
-                      resizeMode="contain"
-                      className="w-80 h-60"
-                    />
+                  <View className="relative-">
+                    <View className="p-2 border border-neutral-300 rounded-md">
+                      <Image
+                        source={{ uri: item.property_image }}
+                        resizeMode="contain"
+                        className="w-80 h-60"
+                      />
+                    </View>
+                    <TouchableOpacity
+                      className="absolute top-4 right-4 bg-white/70"
+                      onPress={() => {
+                        setLiked((prevLiked) => !prevLiked);
+                      }}
+                    >
+                      <Image
+                        source={liked ? icons.heartFilled : icons.heartUnfilled}
+                        className="w-8 h-8"
+                        resizeMode="contain"
+                      />
+                    </TouchableOpacity>
                   </View>
                   <View className="flex flex-row gap-1.5">
                     <View className="flex flex-row border border-neutral-400 rounded-lg justify-center items-center p-2 gap-2">
