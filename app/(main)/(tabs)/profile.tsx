@@ -83,8 +83,25 @@ const Profile = () => {
   };
 
   const handleSignOut = () => {
-    signOut();
-    router.replace("/(auth)/sign-in");
+    Alert.alert(
+      "Sign Out",
+      "Are you sure you want to sign out?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Sign Out",
+          style: "destructive",
+          onPress: () => {
+            signOut();
+            router.replace("/(auth)/sign-in");
+          },
+        },
+      ],
+      { cancelable: true },
+    );
   };
 
   return (
