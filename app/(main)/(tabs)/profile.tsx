@@ -5,14 +5,17 @@ import {
   ScrollView,
   Image,
   Alert,
+  TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
-import { useUser } from "@clerk/clerk-expo";
+import { useUser, useAuth } from "@clerk/clerk-expo";
 import InputField from "@/components/InputField";
 import { icons } from "@/constants";
+import { router } from "expo-router";
 
 const Profile = () => {
   const { user } = useUser();
+  const { signOut } = useAuth();
 
   const [firstName, setFirstName] = useState(user?.firstName || "");
   const [lastName, setLastName] = useState(user?.lastName || "");
@@ -79,10 +82,24 @@ const Profile = () => {
     }
   };
 
+  const handleSignOut = () => {
+    signOut();
+    router.replace("/(auth)/sign-in");
+  };
+
   return (
     <SafeAreaView className="flex-1">
       <ScrollView className="px-5">
-        <Text className="text-2xl font-MontserratBold my-3">My Profile</Text>
+        <View className="flex flex-row justify-between my-3">
+          <Text className="text-2xl font-MontserratBold">My Profile</Text>
+          <TouchableOpacity onPress={handleSignOut}>
+            <Image
+              source={icons.logout}
+              className="w-5 h-5"
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
+        </View>
         <View className="flex items-center justify-center my-5 shadow-md shadow-slate-600">
           <Image
             source={{
