@@ -32,3 +32,36 @@ declare interface GoogleInputProps {
     state?: string;
   }) => void;
 }
+
+export interface LoopNetProperty {
+  listingId: string;
+  title: string;
+  description: string;
+  price: number;
+  propertyType: string;
+  address: {
+    street: string;
+    city: string;
+    state: string;
+    postalCode: string;
+    country: string;
+  };
+  coordinates: {
+    lat: number;
+    lng: number;
+  };
+  images: string[];
+  broker: {
+    name: string;
+    phone: string;
+    email: string;
+  };
+  bedrooms: number;
+  bathrooms: number;
+  square_ft: number;
+}
+
+declare interface PropertyStore {
+  properties: LoopNetProperty[];
+  fetchMockProperties: () => void;
+}
