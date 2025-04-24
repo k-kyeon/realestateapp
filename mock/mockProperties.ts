@@ -32,6 +32,36 @@ export const mockProperties: LoopNetProperty[] = [
     square_ft: 2000,
   },
   {
+    listingId: "LN425456",
+    title: "Modern Office Space Uptown",
+    description: "A spacious and modern office space in the heart of the city.",
+    price: 1500000,
+    propertyType: "Office",
+    address: {
+      street: "333 Business Ave",
+      city: "Los Angeles",
+      state: "CA",
+      postalCode: "90215",
+      country: "USA",
+    },
+    coordinates: {
+      lat: 32.0456,
+      lng: -122.2567,
+    },
+    images: [
+      "https://example.com/images/office1.jpg",
+      "https://example.com/images/office2.jpg",
+    ],
+    broker: {
+      name: "Junior Jen",
+      phone: "125-123-4467",
+      email: "junior.jen@realestateco.com",
+    },
+    bedrooms: 3,
+    bathrooms: 3.5,
+    square_ft: 4000,
+  },
+  {
     listingId: "LN654321",
     title: "Retail Space in Prime Location",
     description: "High-traffic location ideal for retail business.",
