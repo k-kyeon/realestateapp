@@ -7,16 +7,18 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { icons } from "@/constants";
+import { usePropertyStore } from "@/store";
 
 const Home = () => {
   const propertyTypes = [
-    "Apartments",
-    "Villas",
-    "Flats",
-    "Condominiums",
-    "Townhouses",
+    "Apartment",
+    "Villa",
+    "Flat",
+    "Condominium",
+    "Townhouse",
+    "Office",
   ];
 
   const data = [
@@ -78,9 +80,15 @@ const Home = () => {
     },
   ];
 
-  const [activePropertyType, setActivePropertyType] = useState("Apartments");
+  const [activePropertyType, setActivePropertyType] = useState("Apartment");
 
   const [liked, setLiked] = useState(false);
+
+  const { properties, fetchMockProperties } = usePropertyStore();
+
+  useEffect(() => {
+    fetchMockProperties();
+  }, [fetchMockProperties]);
 
   return (
     <SafeAreaView className="flex">
@@ -139,14 +147,14 @@ const Home = () => {
           </View>
 
           <FlatList
-            data={data.slice(0, 3)}
+            data={properties.slice(0, 3)}
             renderItem={({ item }) => (
               <TouchableOpacity className="rounded-xl">
                 <View className="w-auto h-[355px] rounded-xl p-3 gap-y-2 bg-white">
                   <View className="relative-">
                     <View className="p-2 border border-neutral-300 rounded-md">
                       <Image
-                        source={{ uri: item.property_image }}
+                        source={{ uri: item.images[0] }}
                         resizeMode="contain"
                         className="w-80 h-60"
                       />
@@ -187,21 +195,19 @@ const Home = () => {
                         resizeMode="contain"
                         className="w-4 h-4"
                       />
-                      <Text className="text-md">
-                        {item.square_footage} sq ft
-                      </Text>
+                      <Text className="text-md">{item.square_ft} sq ft</Text>
                     </View>
                   </View>
                   <Text className="text-2xl font-MontserratRegular text-cyan-800">
-                    ${item.estimated_price}
+                    ${item.price}
                   </Text>
                   <Text className="text-xl font-MontserratLight">
-                    {item.address}
+                    {item.address.street}
                   </Text>
                 </View>
               </TouchableOpacity>
             )}
-            keyExtractor={(item) => item?.property_id}
+            keyExtractor={(item) => item?.listingId}
             contentContainerStyle={{ columnGap: 15 }}
             showsHorizontalScrollIndicator={false}
             horizontal
@@ -216,13 +222,13 @@ const Home = () => {
             </TouchableOpacity>
           </View>
 
-          {data.map((item) => (
-            <TouchableOpacity key={item.property_id} className="w-full">
+          {properties.map((item) => (
+            <TouchableOpacity key={item.listingId} className="w-full">
               <View className="w-full h-[110px] bg-white rounded-xl p-3 my-2">
                 <View className="flex flex-row gap-x-2">
                   <View className="p-2 border rounded-md border-neutral-300">
                     <Image
-                      source={{ uri: item.property_image }}
+                      source={{ uri: item.images[1] }}
                       resizeMode="contain"
                       className="w-20 h-20"
                     />
@@ -249,14 +255,14 @@ const Home = () => {
                     </View>
 
                     <Text className="text-xl font-MontserratThin text-cyan-800">
-                      ${item.estimated_price}
+                      ${item.price}
                     </Text>
                     <Text
                       className="text-lg font-MontserratLight"
                       numberOfLines={1}
                       ellipsizeMode="tail"
                     >
-                      {item.address}
+                      {item.address.street}
                     </Text>
                   </View>
                 </View>
