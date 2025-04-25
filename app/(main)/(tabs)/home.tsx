@@ -10,6 +10,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { icons, images } from "@/constants";
 import { usePropertyStore } from "@/store";
+import { router } from "expo-router";
 
 const Home = () => {
   const propertyTypes = [
@@ -103,7 +104,11 @@ const Home = () => {
                 <Text className="font-MontserratSemiBold text-lg">
                   Recommended Homes
                 </Text>
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    router.push(`/all-listings?type=${activePropertyType}`)
+                  }
+                >
                   <Text className="font-MontserratSemiBold text-lg">
                     See All
                   </Text>
@@ -194,13 +199,13 @@ const Home = () => {
                 </TouchableOpacity>
               </View>
 
-              {filteredProperties.map((item) => (
+              {filteredProperties.slice(0, 3).map((item) => (
                 <TouchableOpacity key={item.listingId} className="w-full">
                   <View className="w-full h-[110px] bg-white rounded-xl p-3 my-2">
                     <View className="flex flex-row gap-x-2">
                       <View className="p-2 border rounded-md border-neutral-300">
                         <Image
-                          source={{ uri: item.images[1] }}
+                          source={{ uri: item.images[0] }}
                           resizeMode="contain"
                           className="w-20 h-20"
                         />
