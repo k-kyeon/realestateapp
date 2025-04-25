@@ -6,7 +6,7 @@ import {
   Image,
   FlatList,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { usePropertyStore } from "@/store";
 import { router, useLocalSearchParams } from "expo-router";
 import { icons } from "@/constants";
@@ -19,42 +19,63 @@ const AllListings = () => {
     (property) =>
       property.propertyType?.toLowerCase() === type?.toString().toLowerCase(),
   );
+
+  const [liked, setLiked] = useState(false);
+
   return (
     <SafeAreaView className="flex-1">
-      <View className="flex-row justify-between">
-        <TouchableOpacity onPress={() => router.back()}>
-          <Image
-            source={icons.leftArrow}
-            className="w-5 h-5"
-            resizeMode="contain"
-          />
-        </TouchableOpacity>
+      <View className="px-5 py-2">
+        <View className="flex-row justify-between mb-5">
+          <TouchableOpacity onPress={() => router.back()}>
+            <Image
+              source={icons.leftArrow}
+              className="w-5 h-5"
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
 
-        <Text>All {type} listings</Text>
+          <Text className="text-xl font-MontserratSemiBold">
+            Recommended {type} listings
+          </Text>
 
-        <View className="w-5 h-5"></View>
-      </View>
+          <View className="w-5 h-5"></View>
+        </View>
 
-      <FlatList
-        data={filteredProperties}
-        keyExtractor={(item) => item.listingId}
-        renderItem={({ item }) => (
-          <TouchableOpacity className="">
-            <View className="w-full h-[100px] border">
-              <View className="">
+        <FlatList
+          data={filteredProperties}
+          keyExtractor={(item) => item.listingId}
+          renderItem={({ item }) => (
+            <View className="w-[50%] p-2">
+              <TouchableOpacity className="w-full rounded-xl overflow-hidden">
                 <Image
                   source={{ uri: item.images[0] }}
-                  className="w-30 h-30"
-                  resizeMode="contain"
+                  className="w-full h-52"
+                  resizeMode="cover"
                 />
-
-                <Text>{item.price}</Text>
-                <Text>{item.address.city}</Text>
-              </View>
+                <TouchableOpacity
+                  className="absolute top-4 right-4"
+                  onPress={() => {
+                    setLiked((prevLiked) => !prevLiked);
+                  }}
+                >
+                  <Image
+                    source={liked ? icons.heartFilled : icons.heartUnfilled}
+                    className="w-8 h-8"
+                    resizeMode="contain"
+                  />
+                </TouchableOpacity>
+              </TouchableOpacity>
+              <Text className="text-lg font-MontserratMedium">
+                ${item.price}
+              </Text>
+              <Text className="text-md font-MontserratLight">
+                {item.address.city}
+              </Text>
             </View>
-          </TouchableOpacity>
-        )}
-      />
+          )}
+          numColumns={2}
+        />
+      </View>
     </SafeAreaView>
   );
 };

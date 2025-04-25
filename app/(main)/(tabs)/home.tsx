@@ -205,7 +205,7 @@ const Home = () => {
                     <View className="flex flex-row gap-x-2">
                       <View className="p-2 border rounded-md border-neutral-300">
                         <Image
-                          source={{ uri: item.images[1] }}
+                          source={{ uri: item.images[0] }}
                           resizeMode="contain"
                           className="w-20 h-20"
                         />

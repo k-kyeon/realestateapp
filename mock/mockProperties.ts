@@ -49,7 +49,7 @@ export const mockProperties: LoopNetProperty[] = [
       lng: -122.2567,
     },
     images: [
-      "https://example.com/images/office1.jpg",
+      "https://loremflickr.com/200/200?random=9",
       "https://example.com/images/office2.jpg",
     ],
     broker: {
@@ -79,7 +79,7 @@ export const mockProperties: LoopNetProperty[] = [
       lng: -122.4194,
     },
     images: [
-      "https://example.com/images/retail1.jpg",
+      "https://loremflickr.com/200/200?random=8",
       "https://example.com/images/retail2.jpg",
     ],
     broker: {
@@ -109,7 +109,7 @@ export const mockProperties: LoopNetProperty[] = [
       lng: -102.4294,
     },
     images: [
-      "https://example.com/images/retail1.jpg",
+      "https://loremflickr.com/200/200?random=7",
       "https://example.com/images/retail2.jpg",
     ],
     broker: {
@@ -139,7 +139,7 @@ export const mockProperties: LoopNetProperty[] = [
       lng: -122.4194,
     },
     images: [
-      "https://example.com/images/office1.jpg",
+      "https://loremflickr.com/200/200?random=6",
       "https://example.com/images/office2.jpg",
     ],
     broker: {
@@ -169,7 +169,7 @@ export const mockProperties: LoopNetProperty[] = [
       lng: -80.1918,
     },
     images: [
-      "https://example.com/images/boutique1.jpg",
+      "https://loremflickr.com/200/200?random=5",
       "https://example.com/images/boutique2.jpg",
     ],
     broker: {
@@ -199,7 +199,7 @@ export const mockProperties: LoopNetProperty[] = [
       lng: -119.6982,
     },
     images: [
-      "https://example.com/images/hotel1.jpg",
+      "https://loremflickr.com/200/200?random=4",
       "https://example.com/images/hotel2.jpg",
     ],
     broker: {
@@ -229,7 +229,7 @@ export const mockProperties: LoopNetProperty[] = [
       lng: -97.7431,
     },
     images: [
-      "https://example.com/images/restaurant1.jpg",
+      "https://loremflickr.com/200/200?random=2",
       "https://example.com/images/restaurant2.jpg",
     ],
     broker: {
@@ -259,7 +259,7 @@ export const mockProperties: LoopNetProperty[] = [
       lng: -104.9903,
     },
     images: [
-      "https://example.com/images/mixeduse1.jpg",
+      "https://loremflickr.com/200/200?random=3",
       "https://example.com/images/mixeduse2.jpg",
     ],
     broker: {
