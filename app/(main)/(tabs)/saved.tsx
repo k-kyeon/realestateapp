@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  SafeAreaView,
-  ScrollView,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import { View, Text, SafeAreaView, ScrollView, Image } from "react-native";
 import React from "react";
 import { usePropertyStore } from "@/store";
 import { icons, images } from "@/constants";
