@@ -24,9 +24,13 @@ const Home = () => {
 
   const [activePropertyType, setActivePropertyType] = useState("Apartment");
 
-  const [liked, setLiked] = useState(false);
-
-  const { properties, fetchMockProperties } = usePropertyStore();
+  const {
+    properties,
+    fetchMockProperties,
+    likedProperties,
+    likeProperty,
+    unlikeProperty,
+  } = usePropertyStore();
 
   const filteredProperties = properties.filter(
     (property) =>
@@ -102,7 +106,7 @@ const Home = () => {
             <>
               <View className="flex flex-row justify-between items-center py-3">
                 <Text className="font-MontserratSemiBold text-lg">
-                  Recommended Homes
+                  Recommended Properties
                 </Text>
                 <TouchableOpacity
                   onPress={() =>
@@ -119,71 +123,85 @@ const Home = () => {
 
               <FlatList
                 data={filteredProperties.slice(0, 3)}
-                renderItem={({ item }) => (
-                  <TouchableOpacity className="rounded-xl">
-                    <View className="w-auto h-[355px] rounded-xl p-3 gap-y-2 bg-white">
-                      <View className="">
-                        <View className="p-2 border border-neutral-300 rounded-md bg-neutral-200">
-                          <Image
-                            source={{ uri: item.images[0] }}
-                            resizeMode="cover"
-                            className="w-80 h-60"
-                          />
+                renderItem={({ item }) => {
+                  const isLiked = likedProperties.some(
+                    (p) => p.listingId === item.listingId,
+                  );
+
+                  return (
+                    <TouchableOpacity className="rounded-xl">
+                      <View className="w-auto h-[355px] rounded-xl p-3 gap-y-2 bg-white">
+                        <View className="">
+                          <View className="p-2 border border-neutral-300 rounded-md bg-neutral-200">
+                            <Image
+                              source={{ uri: item.images[0] }}
+                              resizeMode="cover"
+                              className="w-80 h-60"
+                            />
+                          </View>
+                          <TouchableOpacity
+                            className="absolute top-4 right-4 bg-white/70"
+                            onPress={() => {
+                              if (isLiked) {
+                                unlikeProperty(item.listingId);
+                              } else {
+                                likeProperty(item);
+                              }
+                            }}
+                          >
+                            <Image
+                              source={
+                                isLiked
+                                  ? icons.heartFilled
+                                  : icons.heartUnfilled
+                              }
+                              className="w-8 h-8"
+                              resizeMode="contain"
+                            />
+                          </TouchableOpacity>
                         </View>
-                        <TouchableOpacity
-                          className="absolute top-4 right-4 bg-white/70"
-                          onPress={() => {
-                            setLiked((prevLiked) => !prevLiked);
-                          }}
-                        >
-                          <Image
-                            source={
-                              liked ? icons.heartFilled : icons.heartUnfilled
-                            }
-                            className="w-8 h-8"
-                            resizeMode="contain"
-                          />
-                        </TouchableOpacity>
+                        <View className="flex flex-row gap-1.5">
+                          <View className="flex flex-row border border-neutral-400 rounded-lg justify-center items-center p-2 gap-2">
+                            <Image
+                              source={icons.bed}
+                              resizeMode="contain"
+                              className="w-4 h-4"
+                            />
+                            <Text className="text-md">
+                              {item.bedrooms} beds
+                            </Text>
+                          </View>
+                          <View className="flex flex-row border border-neutral-400 rounded-lg justify-center items-center p-2 gap-2">
+                            <Image
+                              source={icons.bathtub}
+                              resizeMode="contain"
+                              className="w-4 h-4"
+                            />
+                            <Text className="text-md">
+                              {item.bathrooms} baths
+                            </Text>
+                          </View>
+                          <View className="flex flex-row border border-neutral-400 rounded-lg justify-center items-center p-2 gap-2">
+                            <Image
+                              source={icons.home}
+                              resizeMode="contain"
+                              className="w-4 h-4"
+                            />
+                            <Text className="text-md">
+                              {item.square_ft} sq ft
+                            </Text>
+                          </View>
+                        </View>
+                        <Text className="text-2xl font-MontserratRegular text-cyan-800">
+                          ${item.price}
+                        </Text>
+                        <Text className="text-xl font-MontserratLight">
+                          {item.address.street}
+                        </Text>
                       </View>
-                      <View className="flex flex-row gap-1.5">
-                        <View className="flex flex-row border border-neutral-400 rounded-lg justify-center items-center p-2 gap-2">
-                          <Image
-                            source={icons.bed}
-                            resizeMode="contain"
-                            className="w-4 h-4"
-                          />
-                          <Text className="text-md">{item.bedrooms} beds</Text>
-                        </View>
-                        <View className="flex flex-row border border-neutral-400 rounded-lg justify-center items-center p-2 gap-2">
-                          <Image
-                            source={icons.bathtub}
-                            resizeMode="contain"
-                            className="w-4 h-4"
-                          />
-                          <Text className="text-md">
-                            {item.bathrooms} baths
-                          </Text>
-                        </View>
-                        <View className="flex flex-row border border-neutral-400 rounded-lg justify-center items-center p-2 gap-2">
-                          <Image
-                            source={icons.home}
-                            resizeMode="contain"
-                            className="w-4 h-4"
-                          />
-                          <Text className="text-md">
-                            {item.square_ft} sq ft
-                          </Text>
-                        </View>
-                      </View>
-                      <Text className="text-2xl font-MontserratRegular text-cyan-800">
-                        ${item.price}
-                      </Text>
-                      <Text className="text-xl font-MontserratLight">
-                        {item.address.street}
-                      </Text>
-                    </View>
-                  </TouchableOpacity>
-                )}
+                    </TouchableOpacity>
+                  );
+                }}
                 keyExtractor={(item) => item?.listingId}
                 contentContainerStyle={{ columnGap: 15 }}
                 showsHorizontalScrollIndicator={false}
@@ -192,7 +210,7 @@ const Home = () => {
 
               <View className="flex flex-row justify-between items-center py-3 mt-4">
                 <Text className="font-MontserratSemiBold text-lg">
-                  Popular Homes
+                  Popular Properties
                 </Text>
                 <TouchableOpacity
                   onPress={() =>
