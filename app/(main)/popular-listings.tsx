@@ -7,11 +7,11 @@ import {
   FlatList,
 } from "react-native";
 import React, { useState } from "react";
-import { usePropertyStore } from "@/store";
 import { router, useLocalSearchParams } from "expo-router";
+import { usePropertyStore } from "@/store";
 import { icons } from "@/constants";
 
-const AllListings = () => {
+const PopularListings = () => {
   const { type } = useLocalSearchParams();
   const { properties } = usePropertyStore();
 
@@ -34,12 +34,20 @@ const AllListings = () => {
             />
           </TouchableOpacity>
 
-          <Text className="text-xl font-MontserratSemiBold">
-            Recommended {type} listings
-          </Text>
+          <Text className="text-xl font-MontserratBold">{type}s</Text>
 
-          <View className="w-5 h-5"></View>
+          <TouchableOpacity>
+            <Image
+              source={icons.filter}
+              className="w-5 h-5"
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
         </View>
+
+        <Text className="text-xl font-MontserratSemiBold mb-3">
+          Popular listings
+        </Text>
 
         <FlatList
           data={filteredProperties}
@@ -80,4 +88,4 @@ const AllListings = () => {
   );
 };
 
-export default AllListings;
+export default PopularListings;
