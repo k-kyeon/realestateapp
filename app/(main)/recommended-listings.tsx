@@ -44,7 +44,8 @@ const RecommendedListings = () => {
             />
           </TouchableOpacity>
         </View>
-        <Text className="text-xl font-MontserratSemiBold">
+
+        <Text className="text-xl font-MontserratSemiBold mb-3">
           Recommended listings
         </Text>
 

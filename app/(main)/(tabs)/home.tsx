@@ -122,11 +122,11 @@ const Home = () => {
                 renderItem={({ item }) => (
                   <TouchableOpacity className="rounded-xl">
                     <View className="w-auto h-[355px] rounded-xl p-3 gap-y-2 bg-white">
-                      <View className="relative-">
-                        <View className="p-2 border border-neutral-300 rounded-md">
+                      <View className="">
+                        <View className="p-2 border border-neutral-300 rounded-md bg-neutral-200">
                           <Image
                             source={{ uri: item.images[0] }}
-                            resizeMode="contain"
+                            resizeMode="cover"
                             className="w-80 h-60"
                           />
                         </View>
@@ -209,7 +209,7 @@ const Home = () => {
                 <TouchableOpacity key={item.listingId} className="w-full">
                   <View className="w-full h-[110px] bg-white rounded-xl p-3 my-2">
                     <View className="flex flex-row gap-x-2">
-                      <View className="p-2 border rounded-md border-neutral-300">
+                      <View className="p-2 border rounded-md border-neutral-300 bg-neutral-200">
                         <Image
                           source={{ uri: item.images[0] }}
                           resizeMode="contain"
@@ -241,7 +241,7 @@ const Home = () => {
                           </View>
                         </View>
 
-                        <Text className="text-xl font-MontserratThin text-cyan-800">
+                        <Text className="text-xl font-MontserratLight text-cyan-800">
                           ${item.price}
                         </Text>
                         <Text
