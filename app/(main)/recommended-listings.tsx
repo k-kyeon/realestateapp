@@ -36,7 +36,13 @@ const RecommendedListings = () => {
 
           <Text className="text-xl font-MontserratBold">{type}s</Text>
 
-          <View className="w-5 h-5"></View>
+          <TouchableOpacity>
+            <Image
+              source={icons.filter}
+              className="w-5 h-5"
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
         </View>
         <Text className="text-xl font-MontserratSemiBold">
           Recommended listings
