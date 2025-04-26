@@ -34,12 +34,13 @@ const RecommendedListings = () => {
             />
           </TouchableOpacity>
 
-          <Text className="text-xl font-MontserratSemiBold">
-            Recommended {type} listings
-          </Text>
+          <Text className="text-xl font-MontserratBold">{type}s</Text>
 
           <View className="w-5 h-5"></View>
         </View>
+        <Text className="text-xl font-MontserratSemiBold">
+          Recommended listings
+        </Text>
 
         <FlatList
           data={filteredProperties}

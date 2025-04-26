@@ -34,12 +34,13 @@ const PopularListings = () => {
             />
           </TouchableOpacity>
 
-          <Text className="text-xl font-MontserratSemiBold">
-            Popular {type} listings
-          </Text>
+          <Text className="text-xl font-MontserratBold">{type}s</Text>
 
           <View className="w-5 h-5"></View>
         </View>
+        <Text className="text-xl font-MontserratSemiBold">
+          Popular listings
+        </Text>
 
         <FlatList
           data={filteredProperties}
