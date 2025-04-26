@@ -106,7 +106,9 @@ const Home = () => {
                 </Text>
                 <TouchableOpacity
                   onPress={() =>
-                    router.push(`/all-listings?type=${activePropertyType}`)
+                    router.push(
+                      `/recommended-listings?type=${activePropertyType}`,
+                    )
                   }
                 >
                   <Text className="font-MontserratSemiBold text-lg">
@@ -192,7 +194,11 @@ const Home = () => {
                 <Text className="font-MontserratSemiBold text-lg">
                   Popular Homes
                 </Text>
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    router.push(`/popular-listings?type=${activePropertyType}`)
+                  }
+                >
                   <Text className="font-MontserratSemiBold text-lg">
                     See All
                   </Text>
