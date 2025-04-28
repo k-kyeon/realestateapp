@@ -32,7 +32,10 @@ const Saved = () => {
         ) : (
           <View>
             {likedProperties.map((item) => (
-              <View className="w-full  bg-white rounded-xl p-3 my-2">
+              <View
+                key={item.listingId}
+                className="w-full bg-white rounded-xl p-3 my-2"
+              >
                 <View className="flex flex-row gap-x-2">
                   <View className="p-2 border rounded-md border-neutral-300 bg-neutral-200">
                     <Image
