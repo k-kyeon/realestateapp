@@ -4,7 +4,6 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Image,
-  Dimensions,
 } from "react-native";
 import React, { useRef, useState } from "react";
 import { router } from "expo-router";

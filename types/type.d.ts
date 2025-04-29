@@ -22,15 +22,17 @@ declare interface InputFieldProps extends TextInputProps {
   onIconPress?: () => void;
 }
 
+declare interface LocationInfo {
+  lat: number;
+  lng: number;
+  city: string;
+  state?: string;
+}
+
 declare interface GoogleInputProps {
   icon?: any;
   iconStyles?: string;
-  onLocationSelect: (info: {
-    lat: number;
-    lng: number;
-    city?: string;
-    state?: string;
-  }) => void;
+  onLocationSelect: (info: LocationInfo) => void;
 }
 
 export interface LoopNetProperty {
