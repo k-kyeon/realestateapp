@@ -5,7 +5,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   Keyboard,
-  FlatList,
   TouchableOpacity,
   Image,
 } from "react-native";
@@ -84,48 +83,62 @@ const Search = () => {
 
   return (
     <BottomSheetModalProvider>
-      <SafeAreaView className="flex-1">
+      <SafeAreaView className="flex-1 bg-white">
+        <View className="px-5 pt-3 pb-2 bg-white z-50">
+          <Text className="font-MontserratBold text-2xl">Search</Text>
+        </View>
+
+        <View className="flex-1">
+          {region && (
+            <MapView
+              region={region}
+              showsUserLocation
+              showsMyLocationButton
+              style={{
+                zIndex: 0,
+                height: "100%",
+                width: "100%",
+              }}
+              onPress={Keyboard.dismiss}
+            >
+              {searchResults.map((property) => (
+                <Marker
+                  key={property.listingId}
+                  coordinate={{
+                    latitude: property.coordinates.lat,
+                    longitude: property.coordinates.lng,
+                  }}
+                  title={property.address.street}
+                  description={`$${property.price}`}
+                />
+              ))}
+            </MapView>
+          )}
+        </View>
+
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
-          className="flex-1"
+          className="absolute top-36 w-full px-5 z-50"
         >
-          <View className="px-5 my-2">
-            <Text className="font-MontserratBold text-2xl mb-3">Search</Text>
-            <GoogleAutoCompleteInput
-              icon={icons.search}
-              iconStyles="bg-slate-600"
-              onLocationSelect={handleLocationSelect}
-            />
-          </View>
-
           <TouchableWithoutFeedback
             onPress={Keyboard.dismiss}
             accessible={false}
           >
-            {region && (
-              <MapView
-                region={region}
-                showsUserLocation
-                showsMyLocationButton
-                style={{
-                  height: 450,
-                  width: "100%",
-                  padding: 15,
-                }}
-              >
-                {searchResults.map((property) => (
-                  <Marker
-                    key={property.listingId}
-                    coordinate={{
-                      latitude: property.coordinates.lat,
-                      longitude: property.coordinates.lng,
-                    }}
-                    title={property.address.street}
-                    description={`$${property.price}`}
+            <View className="flex-row items-center">
+              <GoogleAutoCompleteInput
+                onLocationSelect={handleLocationSelect}
+              />
+
+              <TouchableOpacity>
+                <View className="rounded-full p-3 bg-slate-400">
+                  <Image
+                    source={icons.search}
+                    className="w-5 h-5"
+                    resizeMode="contain"
                   />
-                ))}
-              </MapView>
-            )}
+                </View>
+              </TouchableOpacity>
+            </View>
           </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
 
