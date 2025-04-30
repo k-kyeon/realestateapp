@@ -11,8 +11,10 @@ import React, { useEffect, useState } from "react";
 import { icons, images } from "@/constants";
 import { usePropertyStore } from "@/store";
 import { router } from "expo-router";
+import { useUser } from "@clerk/clerk-expo";
 
 const Home = () => {
+  const { user } = useUser();
   const propertyTypes = [
     "Apartment",
     "Villa",
@@ -45,11 +47,11 @@ const Home = () => {
     <SafeAreaView className="flex">
       <ScrollView className="mb-20">
         <View className="flex flex-row justify-between items-center px-5 py-2">
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/profile")}>
             <View className="border rounded-full border-slate-500">
               <Image
-                source={icons.avatar}
-                className="w-10 h-10"
+                source={{ uri: user?.imageUrl }}
+                className="w-10 h-10 rounded-full"
                 resizeMode="contain"
               />
             </View>
