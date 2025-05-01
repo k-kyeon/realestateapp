@@ -9,6 +9,10 @@ const Layout = () => {
         options={{ headerShown: false }}
       />
       <Stack.Screen name="popular-listings" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="listing-details/[id]"
+        options={{ headerShown: false }}
+      />
     </Stack>
   );
 };

@@ -27,6 +27,7 @@ import heartFilled from "@/assets/icons/heart-filled.png";
 import chatImage from "@/assets/images/chat-image.png";
 import fallback from "@/assets/images/fallback.png";
 import saved from "@/assets/images/saved.png";
+import size from "@/assets/icons/size.png";
 
 export const images = {
   onboarding1,
@@ -61,6 +62,7 @@ export const icons = {
   filter,
   heartUnfilled,
   heartFilled,
+  size,
 };
 
 export const onboarding = [

@@ -131,7 +131,15 @@ const Home = () => {
                   );
 
                   return (
-                    <TouchableOpacity className="rounded-xl">
+                    <TouchableOpacity
+                      className="rounded-xl"
+                      onPress={() =>
+                        router.push({
+                          pathname: "/(main)/listing-details/[id]",
+                          params: { id: item.listingId },
+                        })
+                      }
+                    >
                       <View className="w-auto h-[355px] rounded-xl p-3 gap-y-2 bg-white">
                         <View className="">
                           <View className="p-2 border border-neutral-300 rounded-md bg-neutral-200">
@@ -165,7 +173,7 @@ const Home = () => {
                           </View>
                           <View className="flex flex-row border border-neutral-400 rounded-lg justify-center items-center p-2 gap-2">
                             <Image
-                              source={icons.home}
+                              source={icons.size}
                               resizeMode="contain"
                               className="w-4 h-4"
                             />
@@ -234,7 +242,16 @@ const Home = () => {
                   (p) => p.listingId === item.listingId,
                 );
                 return (
-                  <TouchableOpacity key={item.listingId} className="w-full">
+                  <TouchableOpacity
+                    key={item.listingId}
+                    className="w-full"
+                    onPress={() =>
+                      router.push({
+                        pathname: "/(main)/listing-details/[id]",
+                        params: { id: item.listingId },
+                      })
+                    }
+                  >
                     <View className="w-full h-[110px] bg-white rounded-xl p-3 my-2">
                       <View className="flex flex-row gap-x-2">
                         <View className="p-2 border rounded-md border-neutral-300 bg-neutral-200">
