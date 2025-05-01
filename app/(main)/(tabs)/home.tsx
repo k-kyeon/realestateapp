@@ -173,7 +173,7 @@ const Home = () => {
                           </View>
                           <View className="flex flex-row border border-neutral-400 rounded-lg justify-center items-center p-2 gap-2">
                             <Image
-                              source={icons.home}
+                              source={icons.size}
                               resizeMode="contain"
                               className="w-4 h-4"
                             />
