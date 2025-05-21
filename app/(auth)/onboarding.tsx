@@ -4,17 +4,18 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Image,
+  Dimensions,
 } from "react-native";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { router } from "expo-router";
-import Swiper from "react-native-swiper";
+import Carousel from "react-native-reanimated-carousel";
 import { onboarding } from "@/constants";
 import CustomButton from "@/components/CustomButton";
 
-const Onboarding = () => {
-  const swiperRef = useRef<Swiper>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
+const { width, height } = Dimensions.get("window");
 
+const Onboarding = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
   const isLast = activeIndex === onboarding.length - 1;
 
   return (
@@ -23,50 +24,56 @@ const Onboarding = () => {
         onPress={() => {
           router.replace("/(auth)/sign-up");
         }}
-        className="flex w-full justify-end items-end p-6"
+        className="flex w-full justify-end items-end px-5"
       >
         <Text className="text-black font-MontserratBold">Skip</Text>
       </TouchableOpacity>
 
-      <Swiper
-        ref={swiperRef}
+      <Carousel
+        width={width}
+        height={height * 0.65}
         loop={false}
-        dot={
-          <View className="w-[7px] h-[7px] mx-1 bg-[#94a1a0] rounded-full" />
-        }
-        activeDot={
-          <View className="w-[20px] h-[7px] mx-1 bg-[#343838] rounded-full" />
-        }
-        onIndexChanged={(index) => setActiveIndex(index)}
-        paginationStyle={{
-          bottom: 185,
-        }}
-      >
-        {onboarding.map((item) => (
-          <View key={item.id} className="flex justify-center items-center">
-            <View className="w-full h-[450px]">
+        data={onboarding}
+        scrollAnimationDuration={800}
+        onSnapToItem={(index) => setActiveIndex(index)}
+        renderItem={({ item }) => (
+          <View className="flex justify-center items-center px-4">
+            <View className="w-full h-[76%]">
               <Image
                 source={item.image}
                 className="w-full h-full"
                 resizeMode="contain"
               />
             </View>
-            <View className="justify-center items-center my-7 gap-5 w-[250px]">
+            <View className="flex justify-center items-center w-[250px] gap-2">
               <Text className="font-MontserratBold text-4xl">{item.title}</Text>
-              <Text className="font-MontserratSemiBold text-xl text-center">
+              <Text className="font-MontserratSemiBold text-xl text-center mb-4">
                 {item.description}
               </Text>
             </View>
           </View>
+        )}
+      />
+
+      <View className="flex flex-row justify-center items-center mb-8">
+        {onboarding.map((_, index) => (
+          <View
+            key={index}
+            className={`w-2 h-2 rounded-full mx-1 ${
+              index === activeIndex ? "bg-black w-4" : "bg-gray-300"
+            }`}
+          />
         ))}
-      </Swiper>
+      </View>
 
       <CustomButton
         title={isLast ? "Get Started" : "Next"}
         onPress={() =>
           isLast
             ? router.replace("/(auth)/sign-up")
-            : swiperRef.current?.scrollBy(1)
+            : setActiveIndex((prevIndex) =>
+                Math.min(prevIndex + 1, onboarding.length - 1),
+              )
         }
         className="w-9/12 mb-8"
       />
