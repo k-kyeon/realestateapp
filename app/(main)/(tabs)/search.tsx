@@ -6,6 +6,7 @@ import {
   Platform,
   Keyboard,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   Image,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
@@ -17,7 +18,6 @@ import BottomSheet, {
   BottomSheetModalProvider,
   BottomSheetScrollView,
 } from "@gorhom/bottom-sheet";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { usePropertyStore } from "@/store";
 import { LocationInfo, LoopNetProperty } from "@/types/type";
 
