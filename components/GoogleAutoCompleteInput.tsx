@@ -14,6 +14,7 @@ const GoogleAutoCompleteInput = ({ onLocationSelect }: GoogleInputProps) => {
         language: "en",
       }}
       debounce={200}
+      predefinedPlaces={[]}
       textInputProps={{
         placeholderTextColor: "#999999",
         style: {
