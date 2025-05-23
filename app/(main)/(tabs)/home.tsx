@@ -29,6 +29,7 @@ const Home = () => {
   const {
     properties,
     fetchMockProperties,
+    fetchProperties,
     likedProperties,
     likeProperty,
     unlikeProperty,
@@ -40,8 +41,8 @@ const Home = () => {
   );
 
   useEffect(() => {
-    fetchMockProperties();
-  }, [fetchMockProperties]);
+    fetchProperties("41096"); // Example: 41096 = New York City ID
+  }, [fetchProperties]);
 
   return (
     <SafeAreaView className="flex">

@@ -66,6 +66,7 @@ export interface LoopNetProperty {
 declare interface PropertyStore {
   properties: LoopNetProperty[];
   fetchMockProperties: () => void;
+  fetchProperties: (locationId?: string) => Promise<void>;
   likedProperties: LoopNetProperty[];
   likeProperty: (property: LoopNetProperty) => Promise<void>;
   unlikeProperty: (listingId: string) => Promise<void>;

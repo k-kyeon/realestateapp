@@ -1,12 +1,20 @@
 import { PropertyStore } from "@/types/type";
 import { create } from "zustand";
-import axios from "axios";
 import { mockProperties } from "@/mock/mockProperties";
+import { fetchLoopNetProperties } from "@/utils/fetchProperties";
 
 export const usePropertyStore = create<PropertyStore>((set, get) => ({
   properties: [],
   fetchMockProperties: () => {
     set({ properties: mockProperties });
+  },
+  fetchProperties: async (locationId = "41096") => {
+    try {
+      const data = await fetchLoopNetProperties(locationIdd);
+      set({ properties: data ?? [] }); // Check actual API structure here
+    } catch (error) {
+      console.error("Failed to fetch LoopNet properties", error);
+    }
   },
   likedProperties: [],
   likeProperty: async (property) => {
