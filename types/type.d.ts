@@ -35,32 +35,56 @@ declare interface GoogleInputProps {
   onLocationSelect: (info: LocationInfo) => void;
 }
 
-export interface LoopNetProperty {
-  listingId: string;
+declare interface LoopNetProperty {
+  listingId: number;
   title: string;
-  description: string;
-  price: number;
-  propertyType: string;
-  address: {
-    street: string;
-    city: string;
-    state: string;
-    postalCode: string;
-    country: string;
+  propertyType?: string;
+  address: string;
+  location: string;
+  countryCode: string;
+  listingType?: string | null;
+  carousel?: {
+    type: string;
+    url: string;
+    thumbnail?: string | null;
+  }[];
+  highlights?: string[];
+  saleSummary?: {
+    auction?: {
+      startBid: string;
+    };
+    numberOfBeds?: string;
   };
-  coordinates: {
+  broker?: {
+    contactId?: number;
+    name?: string;
+    company?: string;
+    location?: string;
+    phone?: string;
+    companyLogo: string;
+  };
+  propertyFacts?: {
+    noUnits?: string;
+    saleType?: string;
+    saleConditions?: string;
+    propertyType?: string;
+    propertySubtype?: string;
+    apartmentStyle?: string;
+    noStories?: string;
+    buildingSize?: string;
+    buildingClass?: string;
+    landAcres?: string;
+    yearBuilt?: string;
+    parkingRatio?: string;
+  };
+  amenities?: {
+    label: string;
+    amenitiesList: string[];
+  }[];
+  coordinates?: {
     lat: number;
     lng: number;
   };
-  images: string[];
-  broker: {
-    name: string;
-    phone: string;
-    email: string;
-  };
-  bedrooms: number;
-  bathrooms: number;
-  square_ft: number;
 }
 
 declare interface PropertyStore {
@@ -69,6 +93,6 @@ declare interface PropertyStore {
   fetchProperties: (locationId?: string) => Promise<void>;
   likedProperties: LoopNetProperty[];
   likeProperty: (property: LoopNetProperty) => Promise<void>;
-  unlikeProperty: (listingId: string) => Promise<void>;
+  unlikeProperty: (listingId: number) => Promise<void>;
   fetchLikedProperties: (userId: string) => Promise<void>;
 }

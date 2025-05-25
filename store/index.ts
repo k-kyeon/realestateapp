@@ -1,17 +1,26 @@
 import { PropertyStore } from "@/types/type";
 import { create } from "zustand";
 import { mockProperties } from "@/mock/mockProperties";
-import { fetchLoopNetProperties } from "@/utils/fetchProperties";
+import {
+  searchPropertiesByCityId,
+  getExtendedPropertyDetails,
+} from "@/utils/fetchProperties";
 
 export const usePropertyStore = create<PropertyStore>((set, get) => ({
   properties: [],
   fetchMockProperties: () => {
     set({ properties: mockProperties });
   },
-  fetchProperties: async (locationId = "41096") => {
+  fetchProperties: async (cityId = "11854") => {
     try {
-      const data = await fetchLoopNetProperties(locationIdd);
-      set({ properties: data ?? [] }); // Check actual API structure here
+      const listingIds = await searchPropertiesByCityId(cityId);
+
+      const details = await Promise.all(
+        listingIds.map((id: any) => getExtendedPropertyDetails(id)),
+      );
+
+      const filtered = details.filter((item) => item !== null);
+      set({ properties: filtered.flat() });
     } catch (error) {
       console.error("Failed to fetch LoopNet properties", error);
     }
@@ -29,7 +38,7 @@ export const usePropertyStore = create<PropertyStore>((set, get) => ({
     }
     // also save to NeonDB
   },
-  unlikeProperty: async (listingId: string) => {
+  unlikeProperty: async (listingId: number) => {
     const { likedProperties } = get();
     set({
       likedProperties: likedProperties.filter((p) => p.listingId !== listingId),

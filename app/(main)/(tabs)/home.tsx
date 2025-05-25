@@ -12,11 +12,12 @@ import { icons, images } from "@/constants";
 import { usePropertyStore } from "@/store";
 import { router } from "expo-router";
 import { useUser } from "@clerk/clerk-expo";
+import { LoopNetProperty } from "@/types/type";
 
 const Home = () => {
   const { user } = useUser();
   const propertyTypes = [
-    "Apartment",
+    "Apartments",
     "Villa",
     "Flat",
     "Condominium",
@@ -35,13 +36,14 @@ const Home = () => {
     unlikeProperty,
   } = usePropertyStore();
 
-  const filteredProperties = properties.filter(
-    (property) =>
-      property.propertyType?.toLowerCase() === activePropertyType.toLowerCase(),
-  );
+  // const filteredProperties = properties.filter(
+  //   (property) =>
+  //     property.propertyFacts?.propertySubtype?.toLowerCase() ===
+  //     activePropertyType.toLowerCase(),
+  // );
 
   useEffect(() => {
-    fetchProperties("41096"); // Example: 41096 = New York City ID
+    fetchProperties("11854"); // Example: 41096 = New York City ID
   }, [fetchProperties]);
 
   return (
@@ -91,7 +93,7 @@ const Home = () => {
         </View>
 
         <View className="mx-5">
-          {filteredProperties.length === 0 ? (
+          {properties.length === 0 ? (
             <View className="my-16 items-center">
               <Image
                 source={images.fallback}
@@ -124,12 +126,19 @@ const Home = () => {
                 </TouchableOpacity>
               </View>
 
+              {console.log("Properties data: ", properties)}
+
               <FlatList
-                data={filteredProperties.slice(0, 3)}
+                data={properties?.filter(
+                  (p): p is LoopNetProperty => !!p.listingId,
+                )}
+                keyExtractor={(item, index) =>
+                  item?.listingId?.toString() ?? `property-${index}`
+                }
                 renderItem={({ item }) => {
-                  const isLiked = likedProperties.some(
-                    (p) => p.listingId === item.listingId,
-                  );
+                  // const isLiked = likedProperties.some(
+                  //   (p) => p.listingId === item.listingId,
+                  // );
 
                   return (
                     <TouchableOpacity
@@ -137,7 +146,7 @@ const Home = () => {
                       onPress={() =>
                         router.push({
                           pathname: "/(main)/listing-details/[id]",
-                          params: { id: item.listingId },
+                          params: { id: item.listingId.toString() },
                         })
                       }
                     >
@@ -145,7 +154,7 @@ const Home = () => {
                         <View className="">
                           <View className="p-2 border border-neutral-300 rounded-md bg-neutral-200">
                             <Image
-                              source={{ uri: item.images[0] }}
+                              source={{ uri: item.carousel?.[0]?.url }}
                               resizeMode="cover"
                               className="w-80 h-60"
                             />
@@ -159,7 +168,7 @@ const Home = () => {
                               className="w-4 h-4"
                             />
                             <Text className="text-md">
-                              {item.bedrooms} beds
+                              {item.saleSummary?.numberOfBeds ?? "N/A"} beds
                             </Text>
                           </View>
                           <View className="flex flex-row border border-neutral-400 rounded-lg justify-center items-center p-2 gap-2">
@@ -168,9 +177,7 @@ const Home = () => {
                               resizeMode="contain"
                               className="w-4 h-4"
                             />
-                            <Text className="text-md">
-                              {item.bathrooms} baths
-                            </Text>
+                            <Text className="text-md">{"N/A"} baths</Text>
                           </View>
                           <View className="flex flex-row border border-neutral-400 rounded-lg justify-center items-center p-2 gap-2">
                             <Image
@@ -179,34 +186,35 @@ const Home = () => {
                               className="w-4 h-4"
                             />
                             <Text className="text-md">
-                              {item.square_ft} sq ft
+                              {item.propertyFacts?.buildingSize ?? "N/A"} sq ft
                             </Text>
                           </View>
                         </View>
                         <View className="flex-row justify-between items-center mx-2">
                           <View>
                             <Text className="text-2xl font-MontserratRegular text-cyan-800">
-                              ${item.price}
+                              ${item.saleSummary?.auction?.startBid ?? "N/A"}
                             </Text>
                             <Text className="text-xl font-MontserratLight">
-                              {item.address.street}
+                              {item.address}
                             </Text>
                           </View>
                           <TouchableOpacity
                             className="bg-transparent"
                             onPress={() => {
-                              if (isLiked) {
-                                unlikeProperty(item.listingId);
-                              } else {
-                                likeProperty(item);
-                              }
+                              // if (isLiked) {
+                              //   unlikeProperty(item.listingId);
+                              // } else {
+                              //   likeProperty(item);
+                              // }
                             }}
                           >
                             <Image
                               source={
-                                isLiked
-                                  ? icons.heartFilled
-                                  : icons.heartUnfilled
+                                // isLiked
+                                //   ? icons.heartFilled
+                                //   : icons.heartUnfilled
+                                icons.heartFilled
                               }
                               className="w-8 h-8"
                               resizeMode="contain"
@@ -217,7 +225,6 @@ const Home = () => {
                     </TouchableOpacity>
                   );
                 }}
-                keyExtractor={(item) => item?.listingId}
                 contentContainerStyle={{ columnGap: 15 }}
                 showsHorizontalScrollIndicator={false}
                 horizontal
@@ -238,90 +245,91 @@ const Home = () => {
                 </TouchableOpacity>
               </View>
 
-              {filteredProperties.slice(0, 3).map((item) => {
-                const isLiked = likedProperties.some(
-                  (p) => p.listingId === item.listingId,
-                );
-                return (
-                  <TouchableOpacity
-                    key={item.listingId}
-                    className="w-full"
-                    onPress={() =>
-                      router.push({
-                        pathname: "/(main)/listing-details/[id]",
-                        params: { id: item.listingId },
-                      })
-                    }
-                  >
-                    <View className="w-full h-[110px] bg-white rounded-xl p-3 my-2">
-                      <View className="flex flex-row gap-x-2">
-                        <View className="p-2 border rounded-md border-neutral-300 bg-neutral-200">
-                          <Image
-                            source={{ uri: item.images[0] }}
-                            resizeMode="contain"
-                            className="w-20 h-20"
-                          />
-                        </View>
-
-                        <View className="flex-1 justify-between">
-                          <View className="flex flex-row gap-1.5">
-                            <View className="flex flex-row border border-neutral-400 rounded-md justify-center items-center p-1 gap-2">
-                              <Image
-                                source={icons.bed}
-                                resizeMode="contain"
-                                className="w-4 h-4"
-                              />
-                              <Text className="text-md">
-                                {item.bedrooms} beds
-                              </Text>
-                            </View>
-                            <View className="flex flex-row border border-neutral-400 rounded-md justify-center items-center p-1 gap-2">
-                              <Image
-                                source={icons.bathtub}
-                                resizeMode="contain"
-                                className="w-4 h-4"
-                              />
-                              <Text className="text-md">
-                                {item.bathrooms} baths
-                              </Text>
-                            </View>
+              {properties
+                ?.filter((item): item is LoopNetProperty => !!item?.listingId)
+                .map((item) => {
+                  // const isLiked = likedProperties.some(
+                  //   (p) => p.listingId === item.listingId,
+                  // );
+                  return (
+                    <TouchableOpacity
+                      key={item.listingId.toString()}
+                      className="w-full"
+                      onPress={() =>
+                        router.push({
+                          pathname: "/(main)/listing-details/[id]",
+                          params: { id: item.listingId.toString() },
+                        })
+                      }
+                    >
+                      <View className="w-full h-[110px] bg-white rounded-xl p-3 my-2">
+                        <View className="flex flex-row gap-x-2">
+                          <View className="p-2 border rounded-md border-neutral-300 bg-neutral-200">
+                            <Image
+                              source={{ uri: item.carousel?.[0]?.url }}
+                              resizeMode="contain"
+                              className="w-20 h-20"
+                            />
                           </View>
 
-                          <Text className="text-xl font-MontserratLight text-cyan-800">
-                            ${item.price}
-                          </Text>
-                          <Text
-                            className="text-lg font-MontserratLight"
-                            numberOfLines={1}
-                            ellipsizeMode="tail"
-                          >
-                            {item.address.street}
-                          </Text>
-                        </View>
+                          <View className="flex-1 justify-between">
+                            <View className="flex flex-row gap-1.5">
+                              <View className="flex flex-row border border-neutral-400 rounded-md justify-center items-center p-1 gap-2">
+                                <Image
+                                  source={icons.bed}
+                                  resizeMode="contain"
+                                  className="w-4 h-4"
+                                />
+                                <Text className="text-md">
+                                  {item.saleSummary?.numberOfBeds ?? "N/A"} beds
+                                </Text>
+                              </View>
+                              <View className="flex flex-row border border-neutral-400 rounded-md justify-center items-center p-1 gap-2">
+                                <Image
+                                  source={icons.bathtub}
+                                  resizeMode="contain"
+                                  className="w-4 h-4"
+                                />
+                                <Text className="text-md">{"N/A"} baths</Text>
+                              </View>
+                            </View>
 
-                        <TouchableOpacity
-                          className="bg-transparent mr-1"
-                          onPress={() => {
-                            if (isLiked) {
-                              unlikeProperty(item.listingId);
-                            } else {
-                              likeProperty(item);
-                            }
-                          }}
-                        >
-                          <Image
-                            source={
-                              isLiked ? icons.heartFilled : icons.heartUnfilled
-                            }
-                            className="w-8 h-8"
-                            resizeMode="contain"
-                          />
-                        </TouchableOpacity>
+                            <Text className="text-xl font-MontserratLight text-cyan-800">
+                              ${item.saleSummary?.auction?.startBid ?? "N/A"}
+                            </Text>
+                            <Text
+                              className="text-lg font-MontserratLight"
+                              numberOfLines={1}
+                              ellipsizeMode="tail"
+                            >
+                              {item.address}
+                            </Text>
+                          </View>
+
+                          <TouchableOpacity
+                            className="bg-transparent mr-1"
+                            onPress={() => {
+                              // if (isLiked) {
+                              //   unlikeProperty(item.listingId);
+                              // } else {
+                              //   likeProperty(item);
+                              // }
+                            }}
+                          >
+                            <Image
+                              source={
+                                // isLiked ? icons.heartFilled : icons.heartUnfilled
+                                icons.heartFilled
+                              }
+                              className="w-8 h-8"
+                              resizeMode="contain"
+                            />
+                          </TouchableOpacity>
+                        </View>
                       </View>
-                    </View>
-                  </TouchableOpacity>
-                );
-              })}
+                    </TouchableOpacity>
+                  );
+                })}
             </>
           )}
         </View>
