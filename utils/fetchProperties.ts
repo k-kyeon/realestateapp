@@ -55,6 +55,7 @@ export const searchPropertiesByCityId = async (cityId: string, page = 1) => {
     const listingIds = listings
       .map((listing: any) => listing.listingId)
       .slice(0, 1);
+    //save coordinates too
 
     return listingIds;
   } catch (error) {
@@ -71,7 +72,6 @@ export const getExtendedPropertyDetails = async (listingId: number) => {
       { listingId },
       { headers: HEADERS },
     );
-
     return response.data?.data || response.data;
   } catch (error) {
     console.error(`Error fetching details for ID ${listingId}:`, error);

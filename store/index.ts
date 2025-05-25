@@ -20,7 +20,7 @@ export const usePropertyStore = create<PropertyStore>((set, get) => ({
       );
 
       const filtered = details.filter((item) => item !== null);
-      set({ properties: filtered });
+      set({ properties: filtered.flat() });
     } catch (error) {
       console.error("Failed to fetch LoopNet properties", error);
     }

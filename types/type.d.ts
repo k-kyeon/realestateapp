@@ -35,7 +35,7 @@ declare interface GoogleInputProps {
   onLocationSelect: (info: LocationInfo) => void;
 }
 
-export interface LoopNetProperty {
+declare interface LoopNetProperty {
   listingId: number;
   title: string;
   propertyType?: string;
