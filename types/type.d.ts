@@ -54,6 +54,7 @@ declare interface LoopNetProperty {
       startBid: string;
     };
     numberOfBeds?: string;
+    numberOfStories?: string;
   };
   broker?: {
     contactId?: number;
@@ -76,6 +77,10 @@ declare interface LoopNetProperty {
     landAcres?: string;
     yearBuilt?: string;
     parkingRatio?: string;
+    price?: string;
+  };
+  portfolioSummary?: {
+    totalBuildingSize?: string;
   };
   amenities?: {
     label: string;

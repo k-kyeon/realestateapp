@@ -126,8 +126,6 @@ const Home = () => {
                 </TouchableOpacity>
               </View>
 
-              {console.log("Properties data: ", properties)}
-
               <FlatList
                 data={properties?.filter(
                   (p): p is LoopNetProperty => !!p.listingId,
@@ -161,39 +159,47 @@ const Home = () => {
                           </View>
                         </View>
                         <View className="flex flex-row gap-1.5">
-                          <View className="flex flex-row border border-neutral-400 rounded-lg justify-center items-center p-2 gap-2">
-                            <Image
-                              source={icons.bed}
-                              resizeMode="contain"
-                              className="w-4 h-4"
-                            />
-                            <Text className="text-md">
-                              {item.saleSummary?.numberOfBeds ?? "N/A"} beds
-                            </Text>
-                          </View>
-                          <View className="flex flex-row border border-neutral-400 rounded-lg justify-center items-center p-2 gap-2">
-                            <Image
-                              source={icons.bathtub}
-                              resizeMode="contain"
-                              className="w-4 h-4"
-                            />
-                            <Text className="text-md">{"N/A"} baths</Text>
-                          </View>
-                          <View className="flex flex-row border border-neutral-400 rounded-lg justify-center items-center p-2 gap-2">
-                            <Image
-                              source={icons.size}
-                              resizeMode="contain"
-                              className="w-4 h-4"
-                            />
-                            <Text className="text-md">
-                              {item.propertyFacts?.buildingSize ?? "N/A"} sq ft
-                            </Text>
-                          </View>
+                          {item.saleSummary?.numberOfStories && (
+                            <View className="flex flex-row border border-neutral-400 rounded-lg justify-center items-center p-2 gap-2">
+                              <Image
+                                source={icons.bed}
+                                resizeMode="contain"
+                                className="w-4 h-4"
+                              />
+                              <Text className="text-md">
+                                {item.saleSummary?.numberOfStories} stories
+                              </Text>
+                            </View>
+                          )}
+                          {item.saleSummary?.numberOfBeds && (
+                            <View className="flex flex-row border border-neutral-400 rounded-lg justify-center items-center p-2 gap-2">
+                              <Image
+                                source={icons.bed}
+                                resizeMode="contain"
+                                className="w-4 h-4"
+                              />
+                              <Text className="text-md">
+                                {item.saleSummary?.numberOfBeds} beds
+                              </Text>
+                            </View>
+                          )}
+                          {item.propertyFacts?.buildingSize && (
+                            <View className="flex flex-row border border-neutral-400 rounded-lg justify-center items-center p-2 gap-2">
+                              <Image
+                                source={icons.size}
+                                resizeMode="contain"
+                                className="w-4 h-4"
+                              />
+                              <Text className="text-md">
+                                {item.propertyFacts?.buildingSize} sq ft
+                              </Text>
+                            </View>
+                          )}
                         </View>
                         <View className="flex-row justify-between items-center mx-2">
                           <View>
                             <Text className="text-2xl font-MontserratRegular text-cyan-800">
-                              ${item.saleSummary?.auction?.startBid ?? "N/A"}
+                              {item.propertyFacts?.price ?? "N/A"}
                             </Text>
                             <Text className="text-xl font-MontserratLight">
                               {item.address}
@@ -274,36 +280,57 @@ const Home = () => {
 
                           <View className="flex-1 justify-between">
                             <View className="flex flex-row gap-1.5">
-                              <View className="flex flex-row border border-neutral-400 rounded-md justify-center items-center p-1 gap-2">
-                                <Image
-                                  source={icons.bed}
-                                  resizeMode="contain"
-                                  className="w-4 h-4"
-                                />
-                                <Text className="text-md">
-                                  {item.saleSummary?.numberOfBeds ?? "N/A"} beds
-                                </Text>
-                              </View>
-                              <View className="flex flex-row border border-neutral-400 rounded-md justify-center items-center p-1 gap-2">
-                                <Image
-                                  source={icons.bathtub}
-                                  resizeMode="contain"
-                                  className="w-4 h-4"
-                                />
-                                <Text className="text-md">{"N/A"} baths</Text>
-                              </View>
+                              {item.saleSummary?.numberOfStories && (
+                                <View className="flex flex-row border border-neutral-400 rounded-md justify-center items-center p-1 gap-2">
+                                  <Image
+                                    source={icons.bed}
+                                    resizeMode="contain"
+                                    className="w-4 h-4"
+                                  />
+                                  <Text className="text-md">
+                                    {item.saleSummary?.numberOfStories} beds
+                                  </Text>
+                                </View>
+                              )}
+                              {item.propertyFacts?.buildingSize && (
+                                <View className="flex flex-row border border-neutral-400 rounded-md justify-center items-center p-1 gap-2">
+                                  <Image
+                                    source={icons.size}
+                                    resizeMode="contain"
+                                    className="w-4 h-4"
+                                  />
+                                  <Text className="text-md">
+                                    {item.propertyFacts?.buildingSize} sq ft
+                                  </Text>
+                                </View>
+                              )}
+                              {item.portfolioSummary?.totalBuildingSize && (
+                                <View className="flex flex-row border border-neutral-400 rounded-md justify-center items-center p-1 gap-2">
+                                  <Image
+                                    source={icons.size}
+                                    resizeMode="contain"
+                                    className="w-4 h-4"
+                                  />
+                                  <Text className="text-md">
+                                    {item.propertyFacts?.buildingSize} sq ft
+                                  </Text>
+                                </View>
+                              )}
                             </View>
 
                             <Text className="text-xl font-MontserratLight text-cyan-800">
-                              ${item.saleSummary?.auction?.startBid ?? "N/A"}
+                              {item.propertyFacts?.price ?? "N/A"}
                             </Text>
-                            <Text
-                              className="text-lg font-MontserratLight"
-                              numberOfLines={1}
-                              ellipsizeMode="tail"
-                            >
-                              {item.address}
-                            </Text>
+
+                            {(item.address || item.location) && (
+                              <Text
+                                className="text-lg font-MontserratLight"
+                                numberOfLines={1}
+                                ellipsizeMode="tail"
+                              >
+                                {item.address} {item.location}
+                              </Text>
+                            )}
                           </View>
 
                           <TouchableOpacity

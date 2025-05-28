@@ -54,7 +54,7 @@ export const searchPropertiesByCityId = async (cityId: string, page = 1) => {
     const listings = response.data?.data || [];
     const listingIds = listings
       .map((listing: any) => listing.listingId)
-      .slice(0, 1);
+      .slice(0, 10);
     //save coordinates too
 
     return listingIds;
