@@ -17,15 +17,15 @@ import { LoopNetProperty } from "@/types/type";
 const Home = () => {
   const { user } = useUser();
   const propertyTypes = [
-    "Apartments",
-    "Villa",
+    "Retail",
+    "Flex",
     "Flat",
     "Condominium",
     "Townhouse",
     "Office",
   ];
 
-  const [activePropertyType, setActivePropertyType] = useState("Apartment");
+  const [activePropertyType, setActivePropertyType] = useState("Retail");
 
   const {
     properties,
@@ -36,15 +36,15 @@ const Home = () => {
     unlikeProperty,
   } = usePropertyStore();
 
-  // const filteredProperties = properties.filter(
-  //   (property) =>
-  //     property.propertyFacts?.propertySubtype?.toLowerCase() ===
-  //     activePropertyType.toLowerCase(),
-  // );
-
   useEffect(() => {
     fetchProperties("11854"); // Example: 41096 = New York City ID
   }, [fetchProperties]);
+
+  const filteredProperties = properties.filter(
+    (property) =>
+      property.propertyFacts?.propertyType?.toLowerCase() ===
+      activePropertyType.toLowerCase(),
+  );
 
   return (
     <SafeAreaView className="flex">
@@ -127,16 +127,16 @@ const Home = () => {
               </View>
 
               <FlatList
-                data={properties?.filter(
+                data={filteredProperties?.filter(
                   (p): p is LoopNetProperty => !!p.listingId,
                 )}
                 keyExtractor={(item, index) =>
                   item?.listingId?.toString() ?? `property-${index}`
                 }
                 renderItem={({ item }) => {
-                  // const isLiked = likedProperties.some(
-                  //   (p) => p.listingId === item.listingId,
-                  // );
+                  const isLiked = likedProperties.some(
+                    (p) => p.listingId === item.listingId,
+                  );
 
                   return (
                     <TouchableOpacity
@@ -208,19 +208,18 @@ const Home = () => {
                           <TouchableOpacity
                             className="bg-transparent"
                             onPress={() => {
-                              // if (isLiked) {
-                              //   unlikeProperty(item.listingId);
-                              // } else {
-                              //   likeProperty(item);
-                              // }
+                              if (isLiked) {
+                                unlikeProperty(item.listingId);
+                              } else {
+                                likeProperty(item);
+                              }
                             }}
                           >
                             <Image
                               source={
-                                // isLiked
-                                //   ? icons.heartFilled
-                                //   : icons.heartUnfilled
-                                icons.heartFilled
+                                isLiked
+                                  ? icons.heartFilled
+                                  : icons.heartUnfilled
                               }
                               className="w-8 h-8"
                               resizeMode="contain"
@@ -251,12 +250,12 @@ const Home = () => {
                 </TouchableOpacity>
               </View>
 
-              {properties
+              {filteredProperties
                 ?.filter((item): item is LoopNetProperty => !!item?.listingId)
                 .map((item) => {
-                  // const isLiked = likedProperties.some(
-                  //   (p) => p.listingId === item.listingId,
-                  // );
+                  const isLiked = likedProperties.some(
+                    (p) => p.listingId === item.listingId,
+                  );
                   return (
                     <TouchableOpacity
                       key={item.listingId.toString()}
@@ -319,7 +318,7 @@ const Home = () => {
                             </View>
 
                             <Text className="text-xl font-MontserratLight text-cyan-800">
-                              {item.propertyFacts?.price ?? "N/A"}
+                              {item.propertyFacts?.price ?? "Price N/A"}
                             </Text>
 
                             {(item.address || item.location) && (
@@ -336,17 +335,18 @@ const Home = () => {
                           <TouchableOpacity
                             className="bg-transparent mr-1"
                             onPress={() => {
-                              // if (isLiked) {
-                              //   unlikeProperty(item.listingId);
-                              // } else {
-                              //   likeProperty(item);
-                              // }
+                              if (isLiked) {
+                                unlikeProperty(item.listingId);
+                              } else {
+                                likeProperty(item);
+                              }
                             }}
                           >
                             <Image
                               source={
-                                // isLiked ? icons.heartFilled : icons.heartUnfilled
-                                icons.heartFilled
+                                isLiked
+                                  ? icons.heartFilled
+                                  : icons.heartUnfilled
                               }
                               className="w-8 h-8"
                               resizeMode="contain"
