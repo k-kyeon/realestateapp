@@ -90,6 +90,7 @@ declare interface LoopNetProperty {
     lat: number;
     lng: number;
   };
+  summary?: string;
 }
 
 declare interface PropertyStore {

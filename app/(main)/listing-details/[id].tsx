@@ -16,7 +16,7 @@ const ListingDetails = () => {
   const { properties, likeProperty, unlikeProperty, likedProperties } =
     usePropertyStore();
 
-  const property = properties.find((p) => p.listingId === id);
+  const property = properties.find((p) => p.listingId.toString() === id);
 
   if (!property) {
     return (
@@ -41,9 +41,7 @@ const ListingDetails = () => {
               resizeMode="contain"
             />
           </TouchableOpacity>
-          <Text className="font-MontserratBold text-xl">
-            {property.address.country}
-          </Text>
+          <Text className="font-MontserratBold text-xl">{"USA"}</Text>
           <TouchableOpacity
             className="bg-transparent"
             onPress={() => {
@@ -64,7 +62,7 @@ const ListingDetails = () => {
 
         <View className="px-3 py-2 mx-2 my-3">
           <Image
-            source={{ uri: property.images[0] }}
+            source={{ uri: property.carousel?.[0]?.url }}
             className="w-full h-[360px] rounded-xl mb-2"
             resizeMode="cover"
           />
@@ -80,7 +78,7 @@ const ListingDetails = () => {
           </View>
 
           <Text className="text-3xl font-MontserratBold text-cyan-800">
-            ${property.price}
+            {property.propertyFacts?.price ?? "N/A"}
           </Text>
 
           <Text className="text-xl font-MontserratBold text-black-800 mt-2">
@@ -88,50 +86,72 @@ const ListingDetails = () => {
           </Text>
 
           <Text className="text-xl font-MontserratSemiBold text-black-800 mb-3">
-            {property.address.street}, {property.address.city},{" "}
-            {property.address.state}
+            {(property.address || property.location) && (
+              <Text
+                className="text-lg font-MontserratLight"
+                numberOfLines={1}
+                ellipsizeMode="tail"
+              >
+                {property.address} {property.location}
+              </Text>
+            )}
           </Text>
 
           <View className="flex flex-row gap-1.5">
-            <View className="flex-1 border border-neutral-400 rounded-lg bg-neutral-200 justify-center items-center p-2 gap-2">
-              <Image
-                source={icons.bed}
-                resizeMode="contain"
-                className="w-6 h-6"
-              />
-              <Text className="text-md">{property.bedrooms} beds</Text>
-            </View>
-            <View className="flex-1 border border-neutral-400 rounded-lg bg-neutral-200 justify-center items-center p-2 gap-2">
-              <Image
-                source={icons.bathtub}
-                resizeMode="contain"
-                className="w-6 h-6"
-              />
-              <Text className="text-md">{property.bathrooms} baths</Text>
-            </View>
-            <View className="flex-1 border border-neutral-400 rounded-lg bg-neutral-200 justify-center items-center p-2 gap-2">
-              <Image
-                source={icons.size}
-                resizeMode="contain"
-                className="w-6 h-6"
-              />
-              <Text className="text-md">{property.square_ft} sq ft</Text>
-            </View>
+            {property.saleSummary?.numberOfStories && (
+              <View className="flex flex-row border border-neutral-400 rounded-md justify-center items-center p-1 gap-2">
+                <Image
+                  source={icons.stories}
+                  resizeMode="contain"
+                  className="w-4 h-4"
+                />
+                <Text className="text-md">
+                  {property.saleSummary?.numberOfStories}{" "}
+                  {property.saleSummary?.numberOfStories === "1"
+                    ? "story"
+                    : "stories"}
+                </Text>
+              </View>
+            )}
+            {property.propertyFacts?.buildingSize && (
+              <View className="flex flex-row border border-neutral-400 rounded-md justify-center items-center p-1 gap-2">
+                <Image
+                  source={icons.size}
+                  resizeMode="contain"
+                  className="w-4 h-4"
+                />
+                <Text className="text-md">
+                  {property.propertyFacts?.buildingSize} sq ft
+                </Text>
+              </View>
+            )}
+            {property.portfolioSummary?.totalBuildingSize && (
+              <View className="flex flex-row border border-neutral-400 rounded-md justify-center items-center p-1 gap-2">
+                <Image
+                  source={icons.size}
+                  resizeMode="contain"
+                  className="w-4 h-4"
+                />
+                <Text className="text-md">
+                  {property.propertyFacts?.buildingSize} sq ft
+                </Text>
+              </View>
+            )}
           </View>
 
           <Text className="text-md mb-4 text-gray-700 mt-3">
-            {property.description}
+            {property.summary}
           </Text>
 
           <Text className="font-MontserratBold text-lg mb-1">Broker Info:</Text>
           <Text className="font-MontserratSemiBold">
-            Name: {property.broker.name}
+            Name: {property.broker?.name}
           </Text>
           <Text className="font-MontserratSemiBold ">
-            Phone: {property.broker.phone}
+            Phone: {property.broker?.phone}
           </Text>
           <Text className="font-MontserratSemiBold ">
-            Email: {property.broker.email}
+            Email: {property.broker?.company}
           </Text>
         </View>
       </ScrollView>

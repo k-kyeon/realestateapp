@@ -162,12 +162,15 @@ const Home = () => {
                           {item.saleSummary?.numberOfStories && (
                             <View className="flex flex-row border border-neutral-400 rounded-lg justify-center items-center p-2 gap-2">
                               <Image
-                                source={icons.bed}
+                                source={icons.stories}
                                 resizeMode="contain"
                                 className="w-4 h-4"
                               />
                               <Text className="text-md">
-                                {item.saleSummary?.numberOfStories} stories
+                                {item.saleSummary?.numberOfStories}{" "}
+                                {item.saleSummary?.numberOfStories === "1"
+                                  ? "story"
+                                  : "stories"}
                               </Text>
                             </View>
                           )}
@@ -282,12 +285,15 @@ const Home = () => {
                               {item.saleSummary?.numberOfStories && (
                                 <View className="flex flex-row border border-neutral-400 rounded-md justify-center items-center p-1 gap-2">
                                   <Image
-                                    source={icons.bed}
+                                    source={icons.stories}
                                     resizeMode="contain"
                                     className="w-4 h-4"
                                   />
                                   <Text className="text-md">
-                                    {item.saleSummary?.numberOfStories} beds
+                                    {item.saleSummary?.numberOfStories}{" "}
+                                    {item.saleSummary?.numberOfStories === "1"
+                                      ? "story"
+                                      : "stories"}
                                   </Text>
                                 </View>
                               )}

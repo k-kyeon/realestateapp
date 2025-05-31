@@ -28,6 +28,7 @@ import chatImage from "@/assets/images/chat-image.png";
 import fallback from "@/assets/images/fallback.png";
 import saved from "@/assets/images/saved.png";
 import size from "@/assets/icons/size.png";
+import stories from "@/assets/icons/stories.png";
 
 export const images = {
   onboarding1,
@@ -63,6 +64,7 @@ export const icons = {
   heartUnfilled,
   heartFilled,
   size,
+  stories,
 };
 
 export const onboarding = [
