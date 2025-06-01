@@ -97,6 +97,10 @@ declare interface PropertyStore {
   properties: LoopNetProperty[];
   fetchMockProperties: () => void;
   fetchProperties: (locationId?: string) => Promise<void>;
+  fetchPropertiesByCoordinates: (
+    latitude: number,
+    longitude: number,
+  ) => Promise<void>;
   likedProperties: LoopNetProperty[];
   likeProperty: (property: LoopNetProperty) => Promise<void>;
   unlikeProperty: (listingId: number) => Promise<void>;
