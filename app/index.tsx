@@ -9,7 +9,7 @@ const Page = () => {
   }
 
   if (isSignedIn) {
-    return <Redirect href={"/(main)/(tabs)/home"} />;
+    return <Redirect href={"/(main)/(tabs)/search"} />;
   }
 
   return <Redirect href="/(auth)/onboarding" />;

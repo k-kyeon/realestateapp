@@ -2,7 +2,9 @@ import React from "react";
 import { GoogleInputProps } from "@/types/type";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
-const googlePlacesApiKey = process.env.EXPO_PUBLIC_GOOGLE_API_KEY;
+import Constants from "expo-constants";
+
+const googleApiKey = Constants.expoConfig?.extra?.googleApiKey;
 
 const GoogleAutoCompleteInput = ({ onLocationSelect }: GoogleInputProps) => {
   return (
@@ -10,7 +12,7 @@ const GoogleAutoCompleteInput = ({ onLocationSelect }: GoogleInputProps) => {
       fetchDetails
       placeholder="Search city (e.g. Miami)"
       query={{
-        key: googlePlacesApiKey,
+        key: googleApiKey,
         language: "en",
       }}
       debounce={200}

@@ -78,3 +78,39 @@ export const getExtendedPropertyDetails = async (listingId: number) => {
     return null;
   }
 };
+
+// 3. Search listings by coordinates
+export const searchPropertiesByCoordinates = async (
+  latitude: number,
+  longitude: number,
+  distance = 5,
+  page = 1,
+) => {
+  try {
+    const response = await axios.post(
+      "https://loopnet-api.p.rapidapi.com/loopnet/sale/searchByCoordination",
+      {
+        coordination: [longitude, latitude],
+        distance,
+        page,
+      },
+      { headers: HEADERS },
+    );
+
+    const listings = response.data?.data || [];
+    const listingsWithCoordinates = listings
+      .map((listing: any) => ({
+        listingId: listing.listingId,
+        coordinates: {
+          lng: listing.coordinations?.[0] ?? null,
+          lat: listing.coordinations?.[1] ?? null,
+        },
+      }))
+      .slice(0, 10);
+
+    return listingsWithCoordinates;
+  } catch (error) {
+    console.error("Error fetching listings by coordinates:", error);
+    return [];
+  }
+};

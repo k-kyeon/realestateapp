@@ -3,6 +3,7 @@ import { create } from "zustand";
 import { mockProperties } from "@/mock/mockProperties";
 import {
   searchPropertiesByCityId,
+  searchPropertiesByCoordinates,
   getExtendedPropertyDetails,
 } from "@/utils/fetchProperties";
 
@@ -23,6 +24,42 @@ export const usePropertyStore = create<PropertyStore>((set, get) => ({
       set({ properties: filtered.flat() });
     } catch (error) {
       console.error("Failed to fetch LoopNet properties", error);
+    }
+  },
+  fetchPropertiesByCoordinates: async (latitude: number, longitude: number) => {
+    try {
+      const listingsWithCoordinates = await searchPropertiesByCoordinates(
+        latitude,
+        longitude,
+      );
+
+      // const details = await Promise.all(
+      //   listingsWithCoordinates.map((listing: any) =>
+      //     getExtendedPropertyDetails(listing.listingId),
+      //   ),
+      // );
+      const details = await Promise.all(
+        listingsWithCoordinates.map(
+          (listing: {
+            listingId: any;
+            coordinates: { latitude: number; longitude: number };
+          }) =>
+            getExtendedPropertyDetails(listing.listingId).then((property) => {
+              if (property) {
+                property.coordinates = {
+                  lat: listing.coordinates.latitude,
+                  lng: listing.coordinates.longitude,
+                };
+              }
+              return property;
+            }),
+        ),
+      );
+
+      const filtered = details.filter((item) => item !== null);
+      set({ properties: filtered.flat() });
+    } catch (error) {
+      console.error("Failed to fetch properties by coordinates:", error);
     }
   },
   likedProperties: [],

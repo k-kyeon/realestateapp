@@ -22,6 +22,13 @@ import { usePropertyStore } from "@/store";
 import { LocationInfo, LoopNetProperty } from "@/types/type";
 
 const Search = () => {
+  const {
+    properties,
+    fetchPropertiesByCoordinates,
+    likedProperties,
+    likeProperty,
+    unlikeProperty,
+  } = usePropertyStore();
   const [searchResults, setSearchResults] = useState<LoopNetProperty[]>([]);
   const [location, setLocation] =
     useState<Location.LocationObjectCoords | null>(null);
@@ -45,6 +52,8 @@ const Search = () => {
         latitudeDelta: 0.05,
         longitudeDelta: 0.05,
       });
+
+      await fetchPropertiesByCoordinates(latitude, longitude);
     })();
   }, []);
 
@@ -62,24 +71,14 @@ const Search = () => {
       longitudeDelta: 0.1,
     });
 
-    const filtered = properties.filter(
-      (property) => property.address.city.toLowerCase() === city.toLowerCase(),
-    );
+    // const filtered = properties.filter(
+    //   (property) =>
+    //     property.location.split(",")[0].trim().toLowerCase() ===
+    //     city.toLowerCase(),
+    // );
 
-    setSearchResults(filtered);
+    // setSearchResults(filtered);
   };
-
-  const {
-    properties,
-    fetchMockProperties,
-    likeProperty,
-    unlikeProperty,
-    likedProperties,
-  } = usePropertyStore();
-
-  useEffect(() => {
-    fetchMockProperties();
-  }, [fetchMockProperties]);
 
   return (
     <BottomSheetModalProvider>
@@ -101,17 +100,20 @@ const Search = () => {
               }}
               onPress={Keyboard.dismiss}
             >
-              {searchResults.map((property) => (
-                <Marker
-                  key={property.listingId}
-                  coordinate={{
-                    latitude: property.coordinates.lat,
-                    longitude: property.coordinates.lng,
-                  }}
-                  title={property.address.street}
-                  description={`$${property.price}`}
-                />
-              ))}
+              {properties.map(
+                (property) =>
+                  property.coordinates && (
+                    <Marker
+                      key={property.listingId}
+                      coordinate={{
+                        latitude: property.coordinates.lat,
+                        longitude: property.coordinates.lng,
+                      }}
+                      title={property.address}
+                      description={property.propertyFacts?.price}
+                    />
+                  ),
+              )}
             </MapView>
           )}
         </View>
@@ -159,12 +161,12 @@ const Search = () => {
             className=""
             contentContainerStyle={{ alignItems: "center" }}
           >
-            {searchResults.length === 0 ? (
+            {properties.length === 0 ? (
               <Text className="text-center text-gray-500 mt-4">
                 No results yet. Search a location!
               </Text>
             ) : (
-              searchResults.map((item) => {
+              properties.map((item) => {
                 const isLiked = likedProperties.some(
                   (p) => p.listingId === item.listingId,
                 );
@@ -186,7 +188,7 @@ const Search = () => {
                         <View className="flex flex-row gap-x-2">
                           <View className="p-2 border rounded-md border-neutral-300 bg-neutral-200">
                             <Image
-                              source={{ uri: item.images[0] }}
+                              source={{ uri: item.carousel?.[0]?.url }}
                               resizeMode="contain"
                               className="w-20 h-20"
                             />
@@ -194,37 +196,45 @@ const Search = () => {
 
                           <View className="flex-1 justify-between">
                             <View className="flex flex-row gap-1.5">
-                              <View className="flex flex-row border border-neutral-400 rounded-md justify-center items-center p-1 gap-2">
-                                <Image
-                                  source={icons.bed}
-                                  resizeMode="contain"
-                                  className="w-4 h-4"
-                                />
-                                <Text className="text-md">
-                                  {item.bedrooms} beds
-                                </Text>
-                              </View>
-                              <View className="flex flex-row border border-neutral-400 rounded-md justify-center items-center p-1 gap-2">
-                                <Image
-                                  source={icons.bathtub}
-                                  resizeMode="contain"
-                                  className="w-4 h-4"
-                                />
-                                <Text className="text-md">
-                                  {item.bathrooms} baths
-                                </Text>
-                              </View>
+                              {item.saleSummary?.numberOfStories && (
+                                <View className="flex flex-row border border-neutral-400 rounded-lg justify-center items-center p-2 gap-2">
+                                  <Image
+                                    source={icons.stories}
+                                    resizeMode="contain"
+                                    className="w-4 h-4"
+                                  />
+                                  <Text className="text-md">
+                                    {item.saleSummary?.numberOfStories}{" "}
+                                    {item.saleSummary?.numberOfStories === "1"
+                                      ? "story"
+                                      : "stories"}
+                                  </Text>
+                                </View>
+                              )}
+                              {item.propertyFacts?.buildingSize && (
+                                <View className="flex flex-row border border-neutral-400 rounded-lg justify-center items-center p-2 gap-2">
+                                  <Image
+                                    source={icons.size}
+                                    resizeMode="contain"
+                                    className="w-4 h-4"
+                                  />
+                                  <Text className="text-md">
+                                    {item.propertyFacts?.buildingSize} sq ft
+                                  </Text>
+                                </View>
+                              )}
                             </View>
 
-                            <Text className="text-xl font-MontserratLight text-cyan-800">
-                              ${item.price}
+                            <Text className="text-2xl font-MontserratRegular text-cyan-800">
+                              {item.propertyFacts?.price ?? "N/A"}
                             </Text>
+
                             <Text
                               className="text-lg font-MontserratLight"
                               numberOfLines={1}
                               ellipsizeMode="tail"
                             >
-                              {item.address.street}
+                              {item.address}
                             </Text>
                           </View>
 
